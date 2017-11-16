@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Threading;
 using System.Web.Script.Serialization;
 using System.Web.Services;
 
@@ -21,14 +22,19 @@ namespace Rehber.WebUI
         [WebMethod]
         public void GetPersonels(string ad)
         {
-            //Thread.Sleep(1000);
+            Thread.Sleep(1000);
             var personeller = new List<Personel>();
             var command = ad != null
-                ? $"SELECT * FROM Personel WHERE Ad LIKE '%{ad}%'" +
-                  $"OR Soyad LIKE '%{ad}%'" +
-                  $"OR Ad + ' ' + Soyad LIKE '%{ad}%'" +
-                  $"OR Telefon LIKE '%{ad}%'"
-                : "SELECT * FROM Personel";
+                ? $"SELECT * FROM Personel p" +
+                  $" INNER JOIN Birim b ON" +
+                  $" p.BirimId = b.BirimId" +
+                  $" WHERE p.Ad LIKE '%{ad}%'" +
+                  $" OR p.Soyad LIKE '%{ad}%'" +
+                  $" OR p.Ad + ' ' + p.Soyad LIKE '%{ad}%'" +
+                  $" OR p.Telefon LIKE '%{ad}%'" 
+                : "SELECT * FROM Personel p" +
+                  " INNER JOIN Birim b ON" +
+                  " p.BirimId = b.BirimId";
 
             using (SqlConnection con = new SqlConnection(_connString))
             {
