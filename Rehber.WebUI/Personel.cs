@@ -6,6 +6,7 @@
         public string Soyad { get; set; }
         public string Telefon { get; set; }
         public string Eposta { get; set; }  
-        public string Fotograf { get; set; }  
+        public string Fotograf { get; set; }
+        public string BirimAdi { get; set; } 
     }
 }
