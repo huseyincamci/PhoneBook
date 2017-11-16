@@ -51,6 +51,7 @@ namespace Rehber.WebUI
                             personel.Telefon = reader["Telefon"].ToString();
                             personel.Eposta = reader["Eposta"].ToString();
                             personel.Fotograf = reader["Resim"].ToString().Remove(0, 1);
+                            personel.BirimAdi = reader["BirimAdi"].ToString().Remove(0, 1);
                             personeller.Add(personel);
                         }
                     }
