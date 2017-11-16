@@ -45,6 +45,7 @@
                             "<td>" + data[i].Soyad + "</td>" +
                             "<td>" + data[i].Telefon + "</td>" +
                             "<td>" + data[i].Eposta + "</td>" +
+                            "<td>" + data[i].BirimAdi + "</td>" +
                             "</tr>");
                     }
                     icerik.append("</tbody>");
@@ -96,6 +97,7 @@
                                 "<td>" + data[i].Soyad + "</td>" +
                                 "<td>" + data[i].Telefon + "</td>" +
                                 "<td>" + data[i].Eposta + "</td>" +
+                                "<td>" + data[i].BirimAdi + "</td>" +
                                 "</tr>");
                         }
                         icerik.append("</tbody>");
