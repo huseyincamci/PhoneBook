@@ -14,13 +14,13 @@
     </asp:ContentPlaceHolder>
 </head>
 <body>
-    <div class="container-fluid">
+    <div class="container-fluid header-back">
         <header style="background: url('/Images/header.png') no-repeat top left; width: 1140px; height: 170px;">
         </header>
     </div>
     <div <%--class="container-fluid"--%>>
         <nav class="navbar navbar-default navbar-static-top">
-            <div class="container-fluid">
+            <div class="container-fluid navbar-back">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
                     <%--<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">

@@ -33,7 +33,10 @@
                         "Telefon" +
                         "</th>" +
                         "<th>" +
-                        "Eposta" +
+                        "Eposta/Web" +
+                        "</th>" +
+                        "<th>" +
+                        "Birim" +
                         "</th>" +
                         "</tr>" +
                         "</thead>");
@@ -44,7 +47,11 @@
                             "<td>" + data[i].Ad + "</td>" +
                             "<td>" + data[i].Soyad + "</td>" +
                             "<td>" + data[i].Telefon + "</td>" +
-                            "<td>" + data[i].Eposta + "</td>" +
+                            "<td>" + data[i].Eposta + "<br/><a href='" +
+                            data[i].Web
+                            + "' target='_blank'>" +
+                            data[i].Web
+                            + "</a></td>" +
                             "<td>" + data[i].BirimAdi + "</td>" +
                             "</tr>");
                     }
@@ -86,7 +93,10 @@
                             "Telefon" +
                             "</th>" +
                             "<th>" +
-                            "Eposta" +
+                            "Eposta/Web" +
+                            "</th>" +
+                            "<th>" +
+                            "Birim" +
                             "</th>" +
                             "</tr>" +
                             "</thead>" + "<tbody>");
@@ -96,7 +106,11 @@
                                 "<td>" + data[i].Ad + "</td>" +
                                 "<td>" + data[i].Soyad + "</td>" +
                                 "<td>" + data[i].Telefon + "</td>" +
-                                "<td>" + data[i].Eposta + "</td>" +
+                                "<td>" + data[i].Eposta + "<br/><a href='" +
+                                data[i].Web
+                                + "' target='_blank'>" +
+                                data[i].Web
+                                +"</a></td>" +
                                 "<td>" + data[i].BirimAdi + "</td>" +
                                 "</tr>");
                         }

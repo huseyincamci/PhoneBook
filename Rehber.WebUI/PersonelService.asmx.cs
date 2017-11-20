@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
-using System.Threading;
 using System.Web.Script.Serialization;
 using System.Web.Services;
 
@@ -22,7 +21,7 @@ namespace Rehber.WebUI
         [WebMethod]
         public void GetPersonels(string ad)
         {
-            Thread.Sleep(1000);
+            //Thread.Sleep(1000);
             var personeller = new List<Personel>();
             var command = ad != null
                 ? $"SELECT * FROM Personel p" +
@@ -52,6 +51,7 @@ namespace Rehber.WebUI
                             personel.Eposta = reader["Eposta"].ToString();
                             personel.Fotograf = reader["Resim"].ToString().Remove(0, 1);
                             personel.BirimAdi = reader["BirimAdi"].ToString();
+                            personel.Web = reader["Web"].ToString();
                             personeller.Add(personel);
                         }
                     }

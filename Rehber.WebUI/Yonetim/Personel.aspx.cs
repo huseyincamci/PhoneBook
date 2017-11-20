@@ -24,7 +24,7 @@ namespace Rehber.WebUI.Yonetim
                 using (SqlCommand cmd = new SqlCommand())
                 {
                     cmd.Connection = dbConnection;
-                    cmd.CommandText = "SELECT * FROM Personel";
+                    cmd.CommandText = "SELECT * FROM Personel ORDER BY PersonelId DESC";
                     gvPersoneller.DataSource = cmd.ExecuteReader();
                     gvPersoneller.DataBind();
                 }

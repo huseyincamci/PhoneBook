@@ -5,7 +5,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <h3>Unvanlar</h3>
     <hr />
-    <div class="panel panel-default">
+    <div class="panel panel-primary">
         <div class="panel-heading">Unvan Ekle</div>
         <div class="panel-body">
             <div class="form-group">
