@@ -110,7 +110,7 @@
                                 data[i].Web
                                 + "' target='_blank'>" +
                                 data[i].Web
-                                +"</a></td>" +
+                                + "</a></td>" +
                                 "<td>" + data[i].BirimAdi + "</td>" +
                                 "</tr>");
                         }
@@ -140,11 +140,15 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder" runat="server">
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-8">
             <div class="form-group">
                 <label for="Arama_Input">Ad Soyad Yada Telefona Göre Arama Yap: </label>
                 <input type="text" class="form-control" value="" placeholder="Aranacak kişi" id="Arama_Input" autocomplete="off" />
             </div>
+        </div>
+        <div class="col-lg-4">
+            <label for="drpBirimler">Birime Göre: </label>
+            <asp:DropDownList ID="drpBirimler" runat="server" CssClass="form-control border-gray"></asp:DropDownList>
         </div>
     </div>
     <hr />
