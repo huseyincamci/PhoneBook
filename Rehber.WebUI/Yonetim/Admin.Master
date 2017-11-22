@@ -52,16 +52,7 @@
     <form id="form1" runat="server">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-3">
-                    <ul class="list-group">
-                        <li class="list-group-item active">Yönetim</li>
-                        <li class="list-group-item"><a href="Personel.aspx">Personel</a></li>
-                        <li class="list-group-item"><a href="Birim.aspx">Birim</a></li>
-                        <li class="list-group-item"><a href="Unvan.aspx">Unvan</a></li>
-                        <li class="list-group-item"><a href="Gorev.aspx">Görev</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-9">
+                <div class="col-md-12">
                     <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
                     </asp:ContentPlaceHolder>
                 </div>

@@ -5,8 +5,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Rehber</title>
-    <link href="/Content/bootstrap-flatly.css" rel="stylesheet" />
-    <link href="/Content/bootstrap-lumen.css" rel="stylesheet" />
+    <%--<link href="/Content/bootstrap-flatly.css" rel="stylesheet" />
+    <link href="/Content/bootstrap-lumen.css" rel="stylesheet" />--%>
     <link href="/Content/bootstrap-paper.css" rel="stylesheet" />
     <link href="/Content/main.css" rel="stylesheet" />
     <script src="/Scripts/jquery-3.2.1.min.js"></script>

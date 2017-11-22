@@ -10,15 +10,22 @@
             Birim Ekle
         </div>
         <div class="panel-body">
-            <div class="form-group">
-                <label for="txtBirim">Birim</label>
-                <asp:TextBox ID="txtBirim" runat="server" CssClass="form-control"></asp:TextBox>
-                <asp:RequiredFieldValidator ID="rfvBirim" runat="server" ErrorMessage="Birim alanı boş geçilemez" ControlToValidate="txtBirim" ForeColor="Red"></asp:RequiredFieldValidator>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="txtBirim">Birim</label>
+                        <asp:TextBox ID="txtBirim" runat="server" CssClass="form-control"></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="rfvBirim" runat="server" ErrorMessage="Birim alanı boş geçilemez" ControlToValidate="txtBirim" ForeColor="Red"></asp:RequiredFieldValidator>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="txtTelefon">Telefon</label>
+                        <asp:TextBox ID="txtTelefon" runat="server" CssClass="form-control"></asp:TextBox>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="txtTelefon">Telefon</label>
-                <asp:TextBox ID="txtTelefon" runat="server" CssClass="form-control"></asp:TextBox>
-            </div>
+
             <div class="form-group">
                 <asp:Button ID="btnBirimEkle" runat="server" Text="Ekle" CssClass="btn btn-primary" OnClick="btnBirimEkle_Click" />
             </div>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Web.UI.WebControls;
 
 namespace Rehber.WebUI
 {
@@ -29,6 +30,8 @@ namespace Rehber.WebUI
                     drpBirimler.DataTextField = "BirimAdi";
                     drpBirimler.DataValueField = "BirimId";
                     drpBirimler.DataBind();
+                    ListItem item = new ListItem("--- Birim Seç ---", "0");
+                    drpBirimler.Items.Insert(0, item);
                 }
             }
         }

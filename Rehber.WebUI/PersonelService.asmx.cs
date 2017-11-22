@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Text;
 using System.Web.Script.Serialization;
 using System.Web.Services;
 
@@ -19,25 +21,49 @@ namespace Rehber.WebUI
         private readonly string _connString = ConfigurationManager.ConnectionStrings["PersonelDB"].ConnectionString;
 
         [WebMethod]
-        public void GetPersonels(string ad)
+        public void GetPersonels(string ad, string birim)
         {
             //Thread.Sleep(1000);
             var personeller = new List<Personel>();
-            var command = ad != null
-                ? $"SELECT * FROM Personel p" +
-                  $" INNER JOIN Birim b ON" +
-                  $" p.BirimId = b.BirimId" +
-                  $" WHERE p.Ad LIKE '%{ad}%'" +
-                  $" OR p.Soyad LIKE '%{ad}%'" +
-                  $" OR p.Ad + ' ' + p.Soyad LIKE '%{ad}%'" +
-                  $" OR p.Telefon LIKE '%{ad}%'" 
-                : "SELECT * FROM Personel p" +
-                  " INNER JOIN Birim b ON" +
-                  " p.BirimId = b.BirimId";
+
+            StringBuilder command = new StringBuilder();
+            if (!string.IsNullOrEmpty(ad) && !string.IsNullOrEmpty(birim))
+            {
+                if (!string.IsNullOrEmpty(ad))
+                {
+                    command.Append($"SELECT TOP 30 * FROM Personel p" +
+                                   $" INNER JOIN Birim b ON" +
+                                   $" p.BirimId = b.BirimId" +
+                                   $" WHERE (p.Ad LIKE '%{ad}%'" +
+                                   $" OR p.Soyad LIKE '%{ad}%'" +
+                                   $" OR p.Ad + ' ' + p.Soyad LIKE '%{ad}%'" +
+                                   $" OR p.Telefon LIKE '%{ad}%')");
+                }
+
+                if (!string.IsNullOrEmpty(birim) && Convert.ToInt32(birim) != 0)
+                {
+                    command.Append($" AND p.BirimId = {birim}");
+                }
+            }
+            else
+            {
+                command.Append("SELECT TOP 30 * FROM Personel p" +
+                                   " INNER JOIN Birim b ON" +
+                                   " p.BirimId = b.BirimId");
+
+                if (!string.IsNullOrEmpty(birim))
+                {
+                    if (Convert.ToInt32(birim) != 0)
+                    {
+                        command.Append($" WHERE p.BirimId = {birim}");
+                    }
+                }
+            }
+            command.Append(" ORDER BY p.Ad ASC");
 
             using (SqlConnection con = new SqlConnection(_connString))
             {
-                using (SqlCommand sqlCommand = new SqlCommand(command, con))
+                using (SqlCommand sqlCommand = new SqlCommand(command.ToString(), con))
                 {
                     con.Open();
                     using (SqlDataReader reader = sqlCommand.ExecuteReader())
