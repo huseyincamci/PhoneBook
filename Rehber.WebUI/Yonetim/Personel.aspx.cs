@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Web.UI.WebControls;
 
 namespace Rehber.WebUI.Yonetim
 {
@@ -88,6 +89,118 @@ namespace Rehber.WebUI.Yonetim
                         cmd.Parameters.AddWithValue("@Resim", "/Images/noPhoto.png");
                     }
                     cmd.ExecuteNonQuery();
+                    PersonelGridDoldur();
+                }
+            }
+        }
+
+        protected void gvPersoneller_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            GridView personelGridView = sender as GridView;
+            int id = Convert.ToInt32(personelGridView?.SelectedRow.Cells[2].Text);
+
+            using (SqlConnection dbConnection = new SqlConnection(_connString))
+            {
+                dbConnection.Open();
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.Connection = dbConnection;
+                    cmd.CommandText = "SELECT * FROM Personel p " +
+                                      "INNER JOIN Birim b " +
+                                      "ON p.BirimId = b.BirimId" +
+                                      $" WHERE p.PersonelId = {id}" +
+                                      " ORDER BY PersonelId DESC";
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        txtAd.Text = reader["Ad"].ToString();
+                        txtSoyad.Text = reader["Soyad"].ToString();
+                        txtEposta.Text = reader["Eposta"].ToString();
+                        txtTelefon.Text = reader["Telefon"].ToString();
+                        txtWeb.Text = reader["Web"].ToString();
+                        drpBirim.SelectedValue = reader["BirimId"].ToString();
+                        hfFileName.Value = reader["Resim"].ToString();
+                        hfPersonelId.Value = reader["PersonelId"].ToString();
+                    }
+                }
+            }
+        }
+
+        protected void btnKisiAra_Click(object sender, EventArgs e)
+        {
+            string kisi = txtKisiAra.Text.Trim();
+            using (SqlConnection dbConnection = new SqlConnection(_connString))
+            {
+                dbConnection.Open();
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.Connection = dbConnection;
+                    command.CommandText = $"SELECT TOP 30 * FROM Personel p" +
+                                          $" INNER JOIN Birim b ON" +
+                                          $" p.BirimId = b.BirimId" +
+                                          $" WHERE (p.Ad LIKE '%{kisi}%'" +
+                                          $" OR p.Soyad LIKE '%{kisi}%'" +
+                                          $" OR p.Ad + ' ' + p.Soyad LIKE '%{kisi}%'" +
+                                          $" OR p.Telefon LIKE '%{kisi}%')";
+                    gvPersoneller.DataSource = command.ExecuteReader();
+                    gvPersoneller.DataBind();
+                }
+            }
+        }
+
+        protected void btnPersonelDuzenle_Click(object sender, EventArgs e)
+        {
+            string ad = txtAd.Text.Trim();
+            string soyad = txtSoyad.Text.Trim();
+            string telefon = txtTelefon.Text.Trim();
+            string eposta = txtEposta.Text.Trim();
+            string web = txtWeb.Text.Trim();
+            int birimId = Convert.ToInt32(drpBirim.SelectedValue);
+
+            using (SqlConnection con = new SqlConnection(_connString))
+            {
+                con.Open();
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.Connection = con;
+                    cmd.CommandText = "UPDATE Personel " +
+                                      "SET Ad = @Ad, Soyad = @Soyad, Telefon = @Telefon, Eposta = @Eposta, Web = @Web, Resim = @Resim, BirimId = @BirimId " +
+                                      $"WHERE PersonelId = {hfPersonelId.Value}";
+                    cmd.Parameters.AddWithValue("@Ad", ad);
+                    cmd.Parameters.AddWithValue("@Soyad", soyad);
+                    cmd.Parameters.AddWithValue("@Telefon", telefon);
+                    cmd.Parameters.AddWithValue("@Eposta", eposta);
+                    cmd.Parameters.AddWithValue("@Web", web);
+                    cmd.Parameters.AddWithValue("@BirimId", birimId);
+                    if (fuFotograf.HasFile)
+                    {
+                        string dosyaAdi = fuFotograf.FileName;
+                        fuFotograf.SaveAs(Server.MapPath($"/Images/{dosyaAdi}"));
+                        cmd.Parameters.AddWithValue("@Resim", $"/Images/{dosyaAdi}");
+                    }
+                    else
+                    {
+                        cmd.Parameters.AddWithValue("@Resim", $"{hfFileName.Value}");
+                    }
+                    cmd.ExecuteNonQuery();
+                    PersonelGridDoldur();
+                }
+            }
+        }
+
+        protected void gvPersoneller_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            GridView gridView = sender as GridView;
+            gridView.SelectedIndex = e.RowIndex;
+            var personelId = Convert.ToInt32(gridView.SelectedRow.Cells[2].Text);
+            using (SqlConnection dbConnection = new SqlConnection(_connString))
+            {
+                dbConnection.Open();
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.Connection = dbConnection;
+                    command.CommandText = $"DELETE FROM Personel WHERE PersonelId = {personelId}";
+                    command.ExecuteNonQuery();
                     PersonelGridDoldur();
                 }
             }

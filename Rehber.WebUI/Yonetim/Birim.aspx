@@ -27,7 +27,7 @@
             </div>
 
             <div class="form-group">
-                <asp:Button ID="btnBirimEkle" runat="server" Text="Ekle" CssClass="btn btn-primary" OnClick="btnBirimEkle_Click" />
+                <asp:Button ID="btnBirimEkle" runat="server" Text="Ekle" CssClass="btn btn-primary pull-right" OnClick="btnBirimEkle_Click" />
             </div>
         </div>
     </div>

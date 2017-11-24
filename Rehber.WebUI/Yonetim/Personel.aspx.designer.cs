@@ -13,6 +13,24 @@ namespace Rehber.WebUI.Yonetim {
     public partial class Personel {
         
         /// <summary>
+        /// hfPersonelId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfPersonelId;
+        
+        /// <summary>
+        /// hfFileName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfFileName;
+        
+        /// <summary>
         /// txtAd control.
         /// </summary>
         /// <remarks>
@@ -85,6 +103,15 @@ namespace Rehber.WebUI.Yonetim {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rqvEposta;
         
         /// <summary>
+        /// RegularExpressionValidator1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator1;
+        
+        /// <summary>
         /// txtWeb control.
         /// </summary>
         /// <remarks>
@@ -112,6 +139,15 @@ namespace Rehber.WebUI.Yonetim {
         protected global::System.Web.UI.WebControls.DropDownList drpBirim;
         
         /// <summary>
+        /// btnPersonelDuzenle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnPersonelDuzenle;
+        
+        /// <summary>
         /// btnPersonelEkle control.
         /// </summary>
         /// <remarks>
@@ -119,6 +155,24 @@ namespace Rehber.WebUI.Yonetim {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnPersonelEkle;
+        
+        /// <summary>
+        /// txtKisiAra control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtKisiAra;
+        
+        /// <summary>
+        /// btnKisiAra control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnKisiAra;
         
         /// <summary>
         /// gvPersoneller control.

@@ -6,8 +6,6 @@
 <head runat="server">
     <title>Admin Yönetim Paneli</title>
     <link href="/Content/bootstrap-paper.css" rel="stylesheet" />
-    <link href="/Content/bootstrap-flatly.css" rel="stylesheet" />
-    <link href="/Content/bootstrap-lumen.css" rel="stylesheet" />
     <link href="/Content/main.css" rel="stylesheet" />
     <script src="/Scripts/jquery-3.2.1.min.js"></script>
     <asp:ContentPlaceHolder ID="head" runat="server">
@@ -37,9 +35,16 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="/Default.aspx">Anasayfa</a></li>
                         <li><a href="/GirisYap.aspx">Yönetim</a></li>
-                        <li><a href="#">İletişim</a></li>
                         <% if (HttpContext.Current.User.Identity.IsAuthenticated)
                             { %>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sayfalar <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="Personel.aspx">Personeller</a></li>
+                                <li><a href="Birim.aspx">Birimler</a></li>
+                                <li><a href="Unvan.aspx">Unvanlar</a></li>
+                            </ul>
+                        </li>
                         <li><a href="CikisYap.aspx">Çıkış Yap</a></li>
                         <% } %>
                     </ul>

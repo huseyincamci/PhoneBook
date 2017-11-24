@@ -14,7 +14,7 @@
                 <asp:RequiredFieldValidator ID="rfvUnvan" runat="server" ErrorMessage="Unvan alanı boş geçilemez" ControlToValidate="txtUnvan" ForeColor="Red"></asp:RequiredFieldValidator>
             </div>
             <div class="form-group">
-                <asp:Button ID="btnUnvanEkle" Text="Ekle" runat="server" CssClass="btn btn-primary" OnClick="btnUnvanEkle_Click" />
+                <asp:Button ID="btnUnvanEkle" Text="Ekle" runat="server" CssClass="btn btn-primary pull-right" OnClick="btnUnvanEkle_Click" />
             </div>
         </div>
     </div>
