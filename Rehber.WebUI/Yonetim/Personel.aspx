@@ -40,7 +40,7 @@
                     <div class="form-group">
                         <label for="txtEposta">Eposta</label>
                         <asp:TextBox ID="txtEposta" runat="server" CssClass="form-control"></asp:TextBox>
-                        <asp:RequiredFieldValidator ID="rqvEposta" runat="server" ErrorMessage="Eposta alanı boş geçilemez" ControlToValidate="txtEposta" ForeColor="Red"></asp:RequiredFieldValidator>
+                        <asp:RequiredFieldValidator ID="rqvEposta" runat="server" ErrorMessage="Eposta alanı boş geçilemez" ControlToValidate="txtEposta" ForeColor="Red"></asp:RequiredFieldValidator><br />
                         <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="txtEposta" ErrorMessage="Geçerli bir mail adresi giriniz." ForeColor="Red" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"></asp:RegularExpressionValidator>
                     </div>
                 </div>
@@ -56,7 +56,9 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="fuFotograf">Fotoğraf</label>
+                        <span class="badge">(150X150 px)</span>
                         <asp:FileUpload ID="fuFotograf" runat="server" CssClass="form-control" />
+                        <asp:Label ID="lblMaxBoyut" runat="server" Text="" ForeColor="red"></asp:Label>
                     </div>
                 </div>
             </div>
@@ -71,8 +73,8 @@
             </div>
 
             <div class="form-group">
-                <asp:Button ID="btnPersonelDuzenle" runat="server" Text="Düzenle" CssClass="btn btn-warning pull-right" OnClick="btnPersonelDuzenle_Click" />
-                <asp:Button ID="btnPersonelEkle" runat="server" Text="Ekle" CssClass="btn btn-primary pull-right" OnClick="btnPersonelEkle_Click" /> 
+                <asp:Button ID="btnPersonelDuzenle" runat="server" Text="Düzenle" CssClass="btn btn-warning pull-right" OnClick="btnPersonelDuzenle_Click" Enabled="False" />
+                <asp:Button ID="btnPersonelEkle" runat="server" Text="Ekle" CssClass="btn btn-primary pull-right" OnClick="btnPersonelEkle_Click" />
             </div>
         </div>
     </div>

@@ -81,6 +81,11 @@ namespace Rehber.WebUI.Yonetim
                     if (fuFotograf.HasFile)
                     {
                         string dosyaAdi = fuFotograf.FileName;
+                        if (fuFotograf.PostedFile.ContentLength > 2000000)
+                        {
+                            lblMaxBoyut.Text = "Dosya boyutu max 2MB olabilir.";
+                            return;
+                        }
                         fuFotograf.SaveAs(Server.MapPath($"/Images/{dosyaAdi}"));
                         cmd.Parameters.AddWithValue("@Resim", $"/Images/{dosyaAdi}");
                     }
@@ -124,6 +129,8 @@ namespace Rehber.WebUI.Yonetim
                     }
                 }
             }
+            btnPersonelDuzenle.Enabled = true;
+            btnPersonelEkle.Enabled = false;
         }
 
         protected void btnKisiAra_Click(object sender, EventArgs e)
@@ -174,6 +181,11 @@ namespace Rehber.WebUI.Yonetim
                     cmd.Parameters.AddWithValue("@BirimId", birimId);
                     if (fuFotograf.HasFile)
                     {
+                        if (fuFotograf.PostedFile.ContentLength > 2000000)
+                        {
+                            lblMaxBoyut.Text = "Dosya boyutu max 2MB olabilir.";
+                            return;
+                        }
                         string dosyaAdi = fuFotograf.FileName;
                         fuFotograf.SaveAs(Server.MapPath($"/Images/{dosyaAdi}"));
                         cmd.Parameters.AddWithValue("@Resim", $"/Images/{dosyaAdi}");
