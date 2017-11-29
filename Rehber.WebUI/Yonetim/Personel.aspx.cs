@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.IO;
 using System.Web.UI.WebControls;
 
 namespace Rehber.WebUI.Yonetim
@@ -49,7 +50,7 @@ namespace Rehber.WebUI.Yonetim
                     drpBirim.DataTextField = "BirimAdi";
                     drpBirim.DataValueField = "BirimId";
                     drpBirim.DataBind();
-                    drpBirim.Items.Insert(0, "--- Birim Seç ---");
+                    drpBirim.Items.Insert(0, new ListItem("--- Birim Seç ---", "0"));
                 }
             }
         }
@@ -95,6 +96,13 @@ namespace Rehber.WebUI.Yonetim
                     }
                     cmd.ExecuteNonQuery();
                     PersonelGridDoldur();
+
+                    txtAd.Text = "";
+                    txtSoyad.Text = "";
+                    txtEposta.Text = "";
+                    txtTelefon.Text = "";
+                    txtWeb.Text = "";
+                    drpBirim.SelectedIndex = 0;
                 }
             }
         }
@@ -211,7 +219,29 @@ namespace Rehber.WebUI.Yonetim
                 using (SqlCommand command = new SqlCommand())
                 {
                     command.Connection = dbConnection;
-                    command.CommandText = $"DELETE FROM Personel WHERE PersonelId = {personelId}";
+                    command.CommandText = "SELECT Resim FROM Personel WHERE PersonelId = @Id";
+                    command.Parameters.AddWithValue("@Id", personelId);
+                    SqlDataReader reader = command.ExecuteReader();
+                    string resim = string.Empty;
+                    while (reader.Read())
+                    {
+                        resim = reader["Resim"].ToString();
+                    }
+
+                    if (File.Exists(Server.MapPath(resim)))
+                    {
+                        File.Delete(Server.MapPath(resim));
+                    }
+                }
+            }
+            using (SqlConnection dbConnection = new SqlConnection(_connString))
+            {
+                dbConnection.Open();
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.Connection = dbConnection;
+                    command.CommandText = "DELETE FROM Personel WHERE PersonelId = @PersonelId";
+                    command.Parameters.AddWithValue("@PersonelId", personelId);
                     command.ExecuteNonQuery();
                     PersonelGridDoldur();
                 }

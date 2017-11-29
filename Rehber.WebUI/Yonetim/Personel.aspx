@@ -58,6 +58,7 @@
                         <label for="fuFotograf">Fotoğraf</label>
                         <span class="badge">(150X150 px)</span>
                         <asp:FileUpload ID="fuFotograf" runat="server" CssClass="form-control" />
+                        <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ErrorMessage="İzin verilen dosya uzantıları: jpg, png" ValidationExpression="([a-zA-Z0-9\s_\\.\-:])+(.png|.jpg|.gif)$" ControlToValidate="fuFotograf" ForeColor="Red"></asp:RegularExpressionValidator><br/>
                         <asp:Label ID="lblMaxBoyut" runat="server" Text="" ForeColor="red"></asp:Label>
                     </div>
                 </div>
@@ -68,8 +69,10 @@
                     <div class="form-group">
                         <label for="drpBirim">Birim</label>
                         <asp:DropDownList ID="drpBirim" runat="server" CssClass="form-control border-gray"></asp:DropDownList>
+                        <asp:RequiredFieldValidator ID="rqrBirimGerekli" runat="server" ErrorMessage="Lütfen birim seçin" ControlToValidate="drpBirim" ForeColor="Red" InitialValue="0"></asp:RequiredFieldValidator>
                     </div>
                 </div>
+                
             </div>
 
             <div class="form-group">

@@ -130,6 +130,15 @@ namespace Rehber.WebUI.Yonetim {
         protected global::System.Web.UI.WebControls.FileUpload fuFotograf;
         
         /// <summary>
+        /// RegularExpressionValidator2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator2;
+        
+        /// <summary>
         /// lblMaxBoyut control.
         /// </summary>
         /// <remarks>
@@ -146,6 +155,15 @@ namespace Rehber.WebUI.Yonetim {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList drpBirim;
+        
+        /// <summary>
+        /// rqrBirimGerekli control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rqrBirimGerekli;
         
         /// <summary>
         /// btnPersonelDuzenle control.
