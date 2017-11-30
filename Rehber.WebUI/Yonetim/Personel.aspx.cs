@@ -94,7 +94,7 @@ namespace Rehber.WebUI.Yonetim
                     command.CommandText = "SELECT * FROM Personel WHERE Eposta = @Eposta OR Telefon = @Telefon";
                     command.Parameters.AddWithValue("@Eposta", eposta);
                     command.Parameters.AddWithValue("@Telefon", telefon);
-                    var  personel = command.ExecuteScalar();
+                    var personel = command.ExecuteScalar();
                     if (personel != null)
                     {
                         Session.Add("HATA", "Eposta ya da Telefon numarası aynı olamaz. Ekleme işlemi gerçekleşmedi.");
@@ -164,9 +164,11 @@ namespace Rehber.WebUI.Yonetim
                     cmd.Connection = dbConnection;
                     cmd.CommandText = "SELECT * FROM Personel p " +
                                       "INNER JOIN Birim b " +
-                                      "ON p.BirimId = b.BirimId" +
-                                      $" WHERE p.PersonelId = @Id" +
-                                      " ORDER BY PersonelId DESC";
+                                      "ON p.BirimId = b.BirimId " +
+                                      "LEFT JOIN Unvan u ON " +
+                                      "p.UnvanId = u.UnvanId " +
+                                      "WHERE p.PersonelId = @Id " +
+                                      "ORDER BY PersonelId DESC";
                     cmd.Parameters.AddWithValue("@Id", id);
                     SqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
@@ -177,7 +179,7 @@ namespace Rehber.WebUI.Yonetim
                         txtTelefon.Text = reader["Telefon"].ToString();
                         txtWeb.Text = reader["Web"].ToString();
                         drpBirim.SelectedValue = reader["BirimId"].ToString();
-                        drpUnvan.SelectedValue = reader["UnvanId"].ToString();
+                        drpUnvan.SelectedValue = reader["UnvanId"]?.ToString();
                         hfFileName.Value = reader["Resim"].ToString();
                         hfPersonelId.Value = reader["PersonelId"].ToString();
                     }
@@ -310,11 +312,11 @@ namespace Rehber.WebUI.Yonetim
 
         protected void gvPersoneller_RowDataBound(object sender, GridViewRowEventArgs e)
         {
-            if (e.Row.RowState != DataControlRowState.Edit) 
+            if (e.Row.RowState != DataControlRowState.Edit)
             {
-                if (e.Row.RowType == DataControlRowType.DataRow) 
+                if (e.Row.RowType == DataControlRowType.DataRow)
                 {
-                    string adSoyad = e.Row.Cells[3].Text +" "+ e.Row.Cells[4].Text;
+                    string adSoyad = e.Row.Cells[3].Text + " " + e.Row.Cells[4].Text;
                     LinkButton lb = (LinkButton)e.Row.Cells[0].Controls[0];
                     lb.Attributes.Add("onclick", "return ConfirmOnDelete('" + adSoyad + "');");
                 }

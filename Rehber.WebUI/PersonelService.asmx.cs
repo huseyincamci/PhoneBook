@@ -31,11 +31,11 @@ namespace Rehber.WebUI
             {
                 if (!string.IsNullOrEmpty(ad))
                 {
-                    command.Append($"SELECT TOP 30 * FROM Personel p" +
-                                   $" INNER JOIN Birim b ON" +
-                                   $" p.BirimId = b.BirimId" +
-                                   $" LEFT JOIN Unvan u ON" +
-                                   $" u.UnvanId = p.UnvanId" +
+                    command.Append("SELECT TOP 50 * FROM Personel p" +
+                                   " INNER JOIN Birim b ON" +
+                                   " p.BirimId = b.BirimId" +
+                                   " LEFT JOIN Unvan u ON" +
+                                   " u.UnvanId = p.UnvanId" +
                                    $" WHERE (p.Ad LIKE '%{ad}%'" +
                                    $" OR p.Soyad LIKE '%{ad}%'" +
                                    $" OR p.Ad + ' ' + p.Soyad LIKE '%{ad}%'" +
@@ -49,7 +49,7 @@ namespace Rehber.WebUI
             }
             else
             {
-                command.Append("SELECT TOP 30 * FROM Personel p" +
+                command.Append("SELECT TOP 50 * FROM Personel p" +
                                    " INNER JOIN Birim b ON" +
                                    " p.BirimId = b.BirimId" +
                                    " LEFT JOIN Unvan u ON" +
