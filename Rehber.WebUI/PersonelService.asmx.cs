@@ -34,7 +34,7 @@ namespace Rehber.WebUI
                     command.Append($"SELECT TOP 30 * FROM Personel p" +
                                    $" INNER JOIN Birim b ON" +
                                    $" p.BirimId = b.BirimId" +
-                                   $" INNER JOIN Unvan u ON" +
+                                   $" LEFT JOIN Unvan u ON" +
                                    $" u.UnvanId = p.UnvanId" +
                                    $" WHERE (p.Ad LIKE '%{ad}%'" +
                                    $" OR p.Soyad LIKE '%{ad}%'" +
@@ -52,7 +52,7 @@ namespace Rehber.WebUI
                 command.Append("SELECT TOP 30 * FROM Personel p" +
                                    " INNER JOIN Birim b ON" +
                                    " p.BirimId = b.BirimId" +
-                                   " INNER JOIN Unvan u ON" +
+                                   " LEFT JOIN Unvan u ON" +
                                    " p.UnvanId = u.UnvanId");
 
                 if (!string.IsNullOrEmpty(birim))
