@@ -82,9 +82,9 @@ namespace Rehber.WebUI.Yonetim
                     if (fuFotograf.HasFile)
                     {
                         string dosyaAdi = fuFotograf.FileName;
-                        if (fuFotograf.PostedFile.ContentLength > 2000000)
+                        if (fuFotograf.PostedFile.ContentLength > 4000000)
                         {
-                            lblMaxBoyut.Text = "Dosya boyutu max 2MB olabilir.";
+                            lblMaxBoyut.Text = "Dosya boyutu max 4MB olabilir.";
                             return;
                         }
                         fuFotograf.SaveAs(Server.MapPath($"/Images/{dosyaAdi}"));
@@ -121,8 +121,9 @@ namespace Rehber.WebUI.Yonetim
                     cmd.CommandText = "SELECT * FROM Personel p " +
                                       "INNER JOIN Birim b " +
                                       "ON p.BirimId = b.BirimId" +
-                                      $" WHERE p.PersonelId = {id}" +
+                                      $" WHERE p.PersonelId = @Id" +
                                       " ORDER BY PersonelId DESC";
+                    cmd.Parameters.AddWithValue("@Id", id);
                     SqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
@@ -153,10 +154,11 @@ namespace Rehber.WebUI.Yonetim
                     command.CommandText = $"SELECT TOP 30 * FROM Personel p" +
                                           $" INNER JOIN Birim b ON" +
                                           $" p.BirimId = b.BirimId" +
-                                          $" WHERE (p.Ad LIKE '%{kisi}%'" +
-                                          $" OR p.Soyad LIKE '%{kisi}%'" +
-                                          $" OR p.Ad + ' ' + p.Soyad LIKE '%{kisi}%'" +
-                                          $" OR p.Telefon LIKE '%{kisi}%')";
+                                          $" WHERE (p.Ad LIKE '%@Kisi%'" +
+                                          $" OR p.Soyad LIKE '%@Kisi%'" +
+                                          $" OR p.Ad + ' ' + p.Soyad LIKE '%@Kisi%'" +
+                                          $" OR p.Telefon LIKE '%@Kisi%')";
+                    command.Parameters.AddWithValue("@Kisi", kisi);
                     gvPersoneller.DataSource = command.ExecuteReader();
                     gvPersoneller.DataBind();
                 }
@@ -254,10 +256,8 @@ namespace Rehber.WebUI.Yonetim
             {
                 if (e.Row.RowType == DataControlRowType.DataRow) 
                 {
-                    string adSoyad = e.Row.Cells[3].Text +" "+ e.Row.Cells[4].Text; 
-                                                     
+                    string adSoyad = e.Row.Cells[3].Text +" "+ e.Row.Cells[4].Text;
                     LinkButton lb = (LinkButton)e.Row.Cells[0].Controls[0];
-                    
                     lb.Attributes.Add("onclick", "return ConfirmOnDelete('" + adSoyad + "');");
                 }
             }
