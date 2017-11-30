@@ -106,12 +106,12 @@ namespace Rehber.WebUI.Yonetim
                             lblMaxBoyut.Text = "Dosya boyutu max 4MB olabilir.";
                             return;
                         }
-                        fuFotograf.SaveAs(Server.MapPath($"/Images/{dosyaAdi}"));
-                        cmd.Parameters.AddWithValue("@Resim", $"/Images/{dosyaAdi}");
+                        fuFotograf.SaveAs(Server.MapPath($"/Uploads/{dosyaAdi}"));
+                        cmd.Parameters.AddWithValue("@Resim", $"/Uploads/{dosyaAdi}");
                     }
                     else
                     {
-                        cmd.Parameters.AddWithValue("@Resim", "/Images/noPhoto.png");
+                        cmd.Parameters.AddWithValue("@Resim", "/Uploads/noPhoto.png");
                     }
                     cmd.ExecuteNonQuery();
                     PersonelGridDoldur();
@@ -219,8 +219,8 @@ namespace Rehber.WebUI.Yonetim
                             return;
                         }
                         string dosyaAdi = fuFotograf.FileName;
-                        fuFotograf.SaveAs(Server.MapPath($"/Images/{dosyaAdi}"));
-                        cmd.Parameters.AddWithValue("@Resim", $"/Images/{dosyaAdi}");
+                        fuFotograf.SaveAs(Server.MapPath($"/Uploads/{dosyaAdi}"));
+                        cmd.Parameters.AddWithValue("@Resim", $"/Uploads/{dosyaAdi}");
                     }
                     else
                     {
