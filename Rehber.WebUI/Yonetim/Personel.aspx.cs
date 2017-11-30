@@ -77,6 +77,7 @@ namespace Rehber.WebUI.Yonetim
                     if (personel != null)
                     {
                         Session.Add("HATA", "Eposta ya da Telefon numarası aynı olamaz. Ekleme işlemi gerçekleşmedi.");
+                        Response.Redirect("Personel.aspx");
                         return;
                     }
                 }
@@ -123,6 +124,7 @@ namespace Rehber.WebUI.Yonetim
                     drpBirim.SelectedIndex = 0;
 
                     Session.Add("BASARILI", "Personel başarıyla eklendi.");
+                    Response.Redirect("Personel.aspx");
                 }
             }
         }
@@ -235,6 +237,7 @@ namespace Rehber.WebUI.Yonetim
                     drpBirim.SelectedIndex = 0;
 
                     Session.Add("GUNCEL", "Personel başarıyla güncenllendi.");
+                    Response.Redirect("Personel.aspx");
                 }
             }
         }
@@ -274,7 +277,7 @@ namespace Rehber.WebUI.Yonetim
                     command.CommandText = "DELETE FROM Personel WHERE PersonelId = @PersonelId";
                     command.Parameters.AddWithValue("@PersonelId", personelId);
                     command.ExecuteNonQuery();
-                    PersonelGridDoldur();
+                    Response.Redirect("Personel.aspx");
                 }
             }
         }
