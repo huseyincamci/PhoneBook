@@ -64,6 +64,24 @@ namespace Rehber.WebUI.Yonetim
             string web = txtWeb.Text.Trim();
             int birimId = Convert.ToInt32(drpBirim.SelectedValue);
 
+            using (SqlConnection dbCon = new SqlConnection(_connString))
+            {
+                dbCon.Open();
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.Connection = dbCon;
+                    command.CommandText = "SELECT * FROM Personel WHERE Eposta = @Eposta OR Telefon = @Telefon";
+                    command.Parameters.AddWithValue("@Eposta", eposta);
+                    command.Parameters.AddWithValue("@Telefon", telefon);
+                    var  personel = command.ExecuteScalar();
+                    if (personel != null)
+                    {
+                        Session.Add("HATA", "Eposta ya da Telefon numarası aynı olamaz. Ekleme işlemi gerçekleşmedi.");
+                        return;
+                    }
+                }
+            }
+
             using (SqlConnection con = new SqlConnection(_connString))
             {
                 con.Open();
@@ -103,6 +121,8 @@ namespace Rehber.WebUI.Yonetim
                     txtTelefon.Text = "";
                     txtWeb.Text = "";
                     drpBirim.SelectedIndex = 0;
+
+                    Session.Add("BASARILI", "Personel başarıyla eklendi.");
                 }
             }
         }
@@ -206,6 +226,15 @@ namespace Rehber.WebUI.Yonetim
                     }
                     cmd.ExecuteNonQuery();
                     PersonelGridDoldur();
+
+                    txtAd.Text = "";
+                    txtSoyad.Text = "";
+                    txtEposta.Text = "";
+                    txtTelefon.Text = "";
+                    txtWeb.Text = "";
+                    drpBirim.SelectedIndex = 0;
+
+                    Session.Add("GUNCEL", "Personel başarıyla güncenllendi.");
                 }
             }
         }

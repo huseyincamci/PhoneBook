@@ -10,6 +10,25 @@
         <div class="panel-heading">Personel Ekle</div>
         <div class="panel-body">
             <div class="row">
+                <div class="col-md-12">
+                    <%if (Session["HATA"] != null)
+                        { %>
+                    <div class="alert alert-danger"><%Response.Write(Session["HATA"]); %></div>
+                    <% Session.Clear();
+                        }
+                        else if (Session["BASARILI"] != null)
+                        { %>
+                    <div class="alert alert-success"><%Response.Write(Session["BASARILI"]); %></div>
+                    <% Session.Clear();
+                        }
+                        else if (Session["GUNCEL"] != null)
+                        { %>
+
+                    <div class="alert alert-info"><%Response.Write(Session["GUNCEL"]); %></div>
+                    <% }
+                        Session.Clear();
+                    %>
+                </div>
                 <div class="col-md-6">
                     <asp:HiddenField ID="hfPersonelId" runat="server" />
                     <asp:HiddenField ID="hfFileName" runat="server" />
@@ -32,7 +51,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="txtTelefon">Telefon</label>
-                        <asp:TextBox ID="txtTelefon" runat="server" CssClass="form-control"></asp:TextBox>
+                        <asp:TextBox ID="txtTelefon" runat="server" CssClass="form-control" placeholder="0 (333) 333 33 33"></asp:TextBox>
                         <asp:RequiredFieldValidator ID="rqvTelefon" runat="server" ErrorMessage="Telefon alanı boş geçilemez" ControlToValidate="txtTelefon" ForeColor="Red"></asp:RequiredFieldValidator>
                     </div>
                 </div>
@@ -58,7 +77,7 @@
                         <label for="fuFotograf">Fotoğraf</label>
                         <span class="badge">(150X150 px)</span>
                         <asp:FileUpload ID="fuFotograf" runat="server" CssClass="form-control" />
-                        <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ErrorMessage="İzin verilen dosya uzantıları: jpg, png" ValidationExpression="([a-zA-Z0-9\s_\\.\-:])+(.png|.jpg|.gif)$" ControlToValidate="fuFotograf" ForeColor="Red"></asp:RegularExpressionValidator><br/>
+                        <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ErrorMessage="İzin verilen dosya uzantıları: jpg, png" ValidationExpression="([a-zA-Z0-9\s_\\.\-:])+(.png|.jpg|.gif)$" ControlToValidate="fuFotograf" ForeColor="Red"></asp:RegularExpressionValidator><br />
                         <asp:Label ID="lblMaxBoyut" runat="server" Text="" ForeColor="red"></asp:Label>
                     </div>
                 </div>
@@ -72,7 +91,7 @@
                         <asp:RequiredFieldValidator ID="rqrBirimGerekli" runat="server" ErrorMessage="Lütfen birim seçin" ControlToValidate="drpBirim" ForeColor="Red" InitialValue="0"></asp:RequiredFieldValidator>
                     </div>
                 </div>
-                
+
             </div>
 
             <div class="form-group">
@@ -101,14 +120,13 @@
             <asp:BoundField DataField="BirimAdi" HeaderText="Birim" />
         </Columns>
     </asp:GridView>
-    
+
     <script type="text/javascript">
-        function ConfirmOnDelete(item)
-        {
-          if (confirm("Kaydı silmek istiyor musunuz: " + item + "?")===true)
-            return true;
-          else
-            return false;
+        function ConfirmOnDelete(item) {
+            if (confirm("Kaydı silmek istiyor musunuz ?") === true)
+                return true;
+            else
+                return false;
         }
     </script>
 </asp:Content>
