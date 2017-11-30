@@ -16,6 +16,7 @@ namespace Rehber.WebUI.Yonetim
             {
                 PersonelGridDoldur();
                 BirimDrpDoldur();
+                UnvanDrpDoldur();
             }
         }
 
@@ -55,6 +56,25 @@ namespace Rehber.WebUI.Yonetim
             }
         }
 
+
+        protected void UnvanDrpDoldur()
+        {
+            using (SqlConnection dbConnection = new SqlConnection(_connString))
+            {
+                dbConnection.Open();
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.Connection = dbConnection;
+                    cmd.CommandText = "SELECT * FROM Unvan ORDER BY UnvanAdi ASC";
+                    drpUnvan.DataSource = cmd.ExecuteReader();
+                    drpUnvan.DataTextField = "UnvanAdi";
+                    drpUnvan.DataValueField = "UnvanId";
+                    drpUnvan.DataBind();
+                    drpUnvan.Items.Insert(0, new ListItem("--- Unvan Seç ---", "0"));
+                }
+            }
+        }
+
         protected void btnPersonelEkle_Click(object sender, EventArgs e)
         {
             string ad = txtAd.Text.Trim();
@@ -63,6 +83,7 @@ namespace Rehber.WebUI.Yonetim
             string eposta = txtEposta.Text.Trim();
             string web = txtWeb.Text.Trim();
             int birimId = Convert.ToInt32(drpBirim.SelectedValue);
+            int unvanId = Convert.ToInt32(drpUnvan.SelectedValue);
 
             using (SqlConnection dbCon = new SqlConnection(_connString))
             {
@@ -90,14 +111,15 @@ namespace Rehber.WebUI.Yonetim
                 {
                     cmd.Connection = con;
                     cmd.CommandText = "INSERT INTO Personel" +
-                                      "(Ad, Soyad, Telefon, Eposta, Web, Resim, BirimId) " +
-                                      "VALUES(@Ad, @Soyad, @Telefon, @Eposta, @Web, @Resim, @BirimId)";
+                                      "(Ad, Soyad, Telefon, Eposta, Web, Resim, BirimId, UnvanId) " +
+                                      "VALUES(@Ad, @Soyad, @Telefon, @Eposta, @Web, @Resim, @BirimId, @UnvanId)";
                     cmd.Parameters.AddWithValue("@Ad", ad);
                     cmd.Parameters.AddWithValue("@Soyad", soyad);
                     cmd.Parameters.AddWithValue("@Telefon", telefon);
                     cmd.Parameters.AddWithValue("@Eposta", eposta);
                     cmd.Parameters.AddWithValue("@Web", web);
                     cmd.Parameters.AddWithValue("@BirimId", birimId);
+                    cmd.Parameters.AddWithValue("@UnvanId", unvanId);
                     if (fuFotograf.HasFile)
                     {
                         string dosyaAdi = fuFotograf.FileName;
@@ -155,6 +177,7 @@ namespace Rehber.WebUI.Yonetim
                         txtTelefon.Text = reader["Telefon"].ToString();
                         txtWeb.Text = reader["Web"].ToString();
                         drpBirim.SelectedValue = reader["BirimId"].ToString();
+                        drpUnvan.SelectedValue = reader["UnvanId"].ToString();
                         hfFileName.Value = reader["Resim"].ToString();
                         hfPersonelId.Value = reader["PersonelId"].ToString();
                     }
@@ -195,6 +218,7 @@ namespace Rehber.WebUI.Yonetim
             string eposta = txtEposta.Text.Trim();
             string web = txtWeb.Text.Trim();
             int birimId = Convert.ToInt32(drpBirim.SelectedValue);
+            int unvanId = Convert.ToInt32(drpUnvan.SelectedValue);
 
             using (SqlConnection con = new SqlConnection(_connString))
             {
@@ -203,14 +227,16 @@ namespace Rehber.WebUI.Yonetim
                 {
                     cmd.Connection = con;
                     cmd.CommandText = "UPDATE Personel " +
-                                      "SET Ad = @Ad, Soyad = @Soyad, Telefon = @Telefon, Eposta = @Eposta, Web = @Web, Resim = @Resim, BirimId = @BirimId " +
-                                      $"WHERE PersonelId = {hfPersonelId.Value}";
+                                      "SET Ad = @Ad, Soyad = @Soyad, Telefon = @Telefon, Eposta = @Eposta, Web = @Web, Resim = @Resim, BirimId = @BirimId, UnvanId = @UnvanId " +
+                                      $"WHERE PersonelId = @PersonelId";
                     cmd.Parameters.AddWithValue("@Ad", ad);
                     cmd.Parameters.AddWithValue("@Soyad", soyad);
                     cmd.Parameters.AddWithValue("@Telefon", telefon);
                     cmd.Parameters.AddWithValue("@Eposta", eposta);
                     cmd.Parameters.AddWithValue("@Web", web);
                     cmd.Parameters.AddWithValue("@BirimId", birimId);
+                    cmd.Parameters.AddWithValue("@UnvanId", unvanId);
+                    cmd.Parameters.AddWithValue("@PersonelId", hfPersonelId.Value);
                     if (fuFotograf.HasFile)
                     {
                         if (fuFotograf.PostedFile.ContentLength > 2000000)

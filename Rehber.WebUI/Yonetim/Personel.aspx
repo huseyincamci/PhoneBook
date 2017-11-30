@@ -72,13 +72,12 @@
                         <asp:TextBox ID="txtWeb" runat="server" CssClass="form-control"></asp:TextBox>
                     </div>
                 </div>
+                
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="fuFotograf">Fotoğraf</label>
-                        <span class="badge">(150X150 px)</span>
-                        <asp:FileUpload ID="fuFotograf" runat="server" CssClass="form-control" />
-                        <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ErrorMessage="İzin verilen dosya uzantıları: jpg, png" ValidationExpression="([a-zA-Z0-9\s_\\.\-:])+(.png|.jpg|.gif)$" ControlToValidate="fuFotograf" ForeColor="Red"></asp:RegularExpressionValidator><br />
-                        <asp:Label ID="lblMaxBoyut" runat="server" Text="" ForeColor="red"></asp:Label>
+                        <label for="drpUnvan">Unvan</label>
+                        <asp:DropDownList ID="drpUnvan" runat="server" CssClass="form-control border-gray"></asp:DropDownList>
+                        <asp:RequiredFieldValidator ID="rqrUnvan" runat="server" ErrorMessage="Lütfen unvan seçin" ControlToValidate="drpUnvan" ForeColor="Red" InitialValue="0"></asp:RequiredFieldValidator>
                     </div>
                 </div>
             </div>
@@ -91,7 +90,17 @@
                         <asp:RequiredFieldValidator ID="rqrBirimGerekli" runat="server" ErrorMessage="Lütfen birim seçin" ControlToValidate="drpBirim" ForeColor="Red" InitialValue="0"></asp:RequiredFieldValidator>
                     </div>
                 </div>
-
+                
+                
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="fuFotograf">Fotoğraf</label>
+                        <span class="badge">(150X150 px)</span>
+                        <asp:FileUpload ID="fuFotograf" runat="server" CssClass="form-control" />
+                        <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ErrorMessage="İzin verilen dosya uzantıları: jpg, png" ValidationExpression="([a-zA-Z0-9\s_\\.\-:])+(.png|.jpg|.gif)$" ControlToValidate="fuFotograf" ForeColor="Red"></asp:RegularExpressionValidator><br />
+                        <asp:Label ID="lblMaxBoyut" runat="server" Text="" ForeColor="red"></asp:Label>
+                    </div>
+                </div>
             </div>
 
             <div class="form-group">

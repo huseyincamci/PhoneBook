@@ -121,6 +121,42 @@ namespace Rehber.WebUI.Yonetim {
         protected global::System.Web.UI.WebControls.TextBox txtWeb;
         
         /// <summary>
+        /// drpUnvan control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList drpUnvan;
+        
+        /// <summary>
+        /// rqrUnvan control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rqrUnvan;
+        
+        /// <summary>
+        /// drpBirim control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList drpBirim;
+        
+        /// <summary>
+        /// rqrBirimGerekli control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rqrBirimGerekli;
+        
+        /// <summary>
         /// fuFotograf control.
         /// </summary>
         /// <remarks>
@@ -146,24 +182,6 @@ namespace Rehber.WebUI.Yonetim {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblMaxBoyut;
-        
-        /// <summary>
-        /// drpBirim control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList drpBirim;
-        
-        /// <summary>
-        /// rqrBirimGerekli control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rqrBirimGerekli;
         
         /// <summary>
         /// btnPersonelDuzenle control.
