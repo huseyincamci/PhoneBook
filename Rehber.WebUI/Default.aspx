@@ -24,10 +24,7 @@
                         "Fotoğraf" +
                         "</th>" +
                         "<th>" +
-                        "Ad" +
-                        "</th>" +
-                        "<th>" +
-                        "Soyad" +
+                        "Ad Soyad" +
                         "</th>" +
                         "<th>" +
                         "Telefon" +
@@ -44,8 +41,7 @@
                     for (var i = 0; i < data.length; i++) {
                         icerik.append("<tr>" +
                             "<td><img src='" + data[i].Fotograf + "' width='120'/></td>" +
-                            "<td>" + data[i].Ad + "</td>" +
-                            "<td>" + data[i].Soyad + "</td>" +
+                            "<td>" + data[i].Unvan + ' ' + data[i].Ad + ' ' + data[i].Soyad + "</td>" +
                             "<td>" + data[i].Telefon + "</td>" +
                             "<td>" + data[i].Eposta + "<br/><a href='" +
                             data[i].Web
@@ -81,10 +77,7 @@
                             "Fotoğraf" +
                             "</th>" +
                             "<th>" +
-                            "Ad" +
-                            "</th>" +
-                            "<th>" +
-                            "Soyad" +
+                            "Ad Soyad" +
                             "</th>" +
                             "<th>" +
                             "Telefon" +
@@ -100,8 +93,7 @@
                         for (var i = 0; i < data.length; i++) {
                             icerik.append("<tr>" +
                                 "<td><img src='" + data[i].Fotograf + "' width='120'/></td>" +
-                                "<td>" + data[i].Ad + "</td>" +
-                                "<td>" + data[i].Soyad + "</td>" +
+                                "<td>" + data[i].Unvan + ' ' + data[i].Ad + ' ' + data[i].Soyad + "</td>" +
                                 "<td>" + data[i].Telefon + "</td>" +
                                 "<td>" + data[i].Eposta + "<br/><a href='" +
                                 data[i].Web
@@ -138,10 +130,7 @@
                             "Fotoğraf" +
                             "</th>" +
                             "<th>" +
-                            "Ad" +
-                            "</th>" +
-                            "<th>" +
-                            "Soyad" +
+                            "Ad Soyad" +
                             "</th>" +
                             "<th>" +
                             "Telefon" +
@@ -157,8 +146,7 @@
                         for (var i = 0; i < data.length; i++) {
                             icerik.append("<tr>" +
                                 "<td><img src='" + data[i].Fotograf + "' width='120'/></td>" +
-                                "<td>" + data[i].Ad + "</td>" +
-                                "<td>" + data[i].Soyad + "</td>" +
+                                "<td>" + data[i].Unvan + ' ' + data[i].Ad + ' ' + data[i].Soyad + "</td>" +
                                 "<td>" + data[i].Telefon + "</td>" +
                                 "<td>" + data[i].Eposta + "<br/><a href='" +
                                 data[i].Web

@@ -8,6 +8,7 @@
         public string Eposta { get; set; }  
         public string Fotograf { get; set; }
         public string BirimAdi { get; set; }
-        public string Web { get; set; } 
+        public string Web { get; set; }
+        public string Unvan { get; set; }   
     }
 }

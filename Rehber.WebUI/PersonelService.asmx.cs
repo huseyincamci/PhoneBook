@@ -34,6 +34,8 @@ namespace Rehber.WebUI
                     command.Append($"SELECT TOP 30 * FROM Personel p" +
                                    $" INNER JOIN Birim b ON" +
                                    $" p.BirimId = b.BirimId" +
+                                   $" INNER JOIN Unvan u ON" +
+                                   $" u.UnvanId = p.UnvanId" +
                                    $" WHERE (p.Ad LIKE '%{ad}%'" +
                                    $" OR p.Soyad LIKE '%{ad}%'" +
                                    $" OR p.Ad + ' ' + p.Soyad LIKE '%{ad}%'" +
@@ -49,7 +51,9 @@ namespace Rehber.WebUI
             {
                 command.Append("SELECT TOP 30 * FROM Personel p" +
                                    " INNER JOIN Birim b ON" +
-                                   " p.BirimId = b.BirimId");
+                                   " p.BirimId = b.BirimId" +
+                                   " INNER JOIN Unvan u ON" +
+                                   " p.UnvanId = u.UnvanId");
 
                 if (!string.IsNullOrEmpty(birim))
                 {
@@ -78,6 +82,7 @@ namespace Rehber.WebUI
                             personel.Fotograf = reader["Resim"].ToString().Remove(0, 1);
                             personel.BirimAdi = reader["BirimAdi"].ToString();
                             personel.Web = reader["Web"].ToString();
+                            personel.Unvan = reader["UnvanAdi"].ToString();
                             personeller.Add(personel);
                         }
                     }
