@@ -247,5 +247,20 @@ namespace Rehber.WebUI.Yonetim
                 }
             }
         }
+
+        protected void gvPersoneller_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowState != DataControlRowState.Edit) 
+            {
+                if (e.Row.RowType == DataControlRowType.DataRow) 
+                {
+                    string adSoyad = e.Row.Cells[3].Text +" "+ e.Row.Cells[4].Text; 
+                                                     
+                    LinkButton lb = (LinkButton)e.Row.Cells[0].Controls[0];
+                    
+                    lb.Attributes.Add("onclick", "return ConfirmOnDelete('" + adSoyad + "');");
+                }
+            }
+        }
     }
 }
