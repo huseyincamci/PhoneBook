@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Web.UI.WebControls;
 
 namespace Rehber.WebUI.Yonetim
 {
@@ -53,6 +54,38 @@ namespace Rehber.WebUI.Yonetim
                         Session.Add("GOREVEKLENDI", "Görev başarıyla eklendi.");
                         Response.Redirect("Gorev.aspx");
                     }
+                }
+            }
+        }
+
+        protected void grvGorevler_RowDeleting(object sender, System.Web.UI.WebControls.GridViewDeleteEventArgs e)
+        {
+            GridView gridView = sender as GridView;
+            gridView.SelectedIndex = e.RowIndex;
+            var gorevId = Convert.ToInt32(gridView.SelectedRow.Cells[1].Text);
+
+            using (SqlConnection dbConnection = new SqlConnection(_connString))
+            {
+                dbConnection.Open();
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.Connection = dbConnection;
+                    command.CommandText = "DELETE FROM Gorev WHERE GorevId = @GorevId";
+                    command.Parameters.AddWithValue("@GorevId", gorevId);
+                    command.ExecuteNonQuery();
+                    Response.Redirect("Gorev.aspx");
+                }
+            }
+        }
+
+        protected void grvGorevler_RowDataBound(object sender, System.Web.UI.WebControls.GridViewRowEventArgs e)
+        {
+            if (e.Row.RowState != DataControlRowState.Edit)
+            {
+                if (e.Row.RowType == DataControlRowType.DataRow)
+                {
+                    LinkButton lb = (LinkButton)e.Row.Cells[0].Controls[0];
+                    lb.Attributes.Add("onclick", "return ConfirmOnDelete();");
                 }
             }
         }
