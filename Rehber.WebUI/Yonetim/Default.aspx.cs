@@ -21,13 +21,15 @@ namespace Rehber.WebUI.Yonetim
                         command.CommandText = "SELECT" +
                                               "(SELECT COUNT(*) FROM Personel) AS PersonelSayisi," +
                                               "(SELECT COUNT(*) FROM Birim) AS BirimSayisi," +
-                                              "(SELECT COUNT(*) FROM Unvan) AS UnvanSayisi";
+                                              "(SELECT COUNT(*) FROM Unvan) AS UnvanSayisi, " +
+                                              "(SELECT COUNT(*) FROM Gorev) AS GorevSayisi";
                         SqlDataReader reader = command.ExecuteReader();
                         while (reader.Read())
                         {
                             lblPersonel.Text = reader["PersonelSayisi"].ToString();
                             lblBirim.Text = reader["BirimSayisi"].ToString();
                             lblUnvan.Text = reader["UnvanSayisi"].ToString();
+                            lblGorev.Text = reader["GorevSayisi"].ToString();
                         }
                     }
                 }

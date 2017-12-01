@@ -23,7 +23,6 @@ namespace Rehber.WebUI
         [WebMethod]
         public void GetPersonels(string ad, string birim)
         {
-            //Thread.Sleep(1000);
             var personeller = new List<Personel>();
 
             StringBuilder command = new StringBuilder();

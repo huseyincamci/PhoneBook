@@ -41,6 +41,7 @@
                                 <li><a href="Personel.aspx">Personeller</a></li>
                                 <li><a href="Birim.aspx">Birimler</a></li>
                                 <li><a href="Unvan.aspx">Unvanlar</a></li>
+                                <li><a href="Gorev.aspx">Görevler</a></li>
                             </ul>
                         </li>
                         <li><a href="CikisYap.aspx">Çıkış Yap</a></li>

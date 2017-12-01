@@ -34,7 +34,6 @@ namespace Rehber.WebUI.Yonetim
         protected void btnBirimEkle_Click(object sender, EventArgs e)
         {
             string birim = txtBirim.Text.Trim();
-            string telefon = txtTelefon.Text.Trim();
 
             if (!string.IsNullOrEmpty(birim))
             {
@@ -44,11 +43,13 @@ namespace Rehber.WebUI.Yonetim
                     using (SqlCommand cmd = new SqlCommand())
                     {
                         cmd.Connection = dbConnection;
-                        cmd.CommandText = "INSERT INTO Birim VALUES(@BirimAdi, @BirimTelefon)";
+                        cmd.CommandText = "INSERT INTO Birim(BirimAdi) VALUES(@BirimAdi)";
                         cmd.Parameters.AddWithValue("@BirimAdi", birim);
-                        cmd.Parameters.AddWithValue("@BirimTelefon", telefon);
                         cmd.ExecuteNonQuery();
                         BirimGridDoldur();
+                        txtBirim.Text = "";
+                        Session.Add("BIRIMEKLENDI", "Birim başarıyla eklendi.");
+                        Response.Redirect("Birim.aspx");
                     }
                 }
             }
