@@ -202,10 +202,10 @@ namespace Rehber.WebUI.Yonetim
                     command.CommandText = "SELECT TOP 30 * FROM Personel p" +
                                           " INNER JOIN Birim b ON" +
                                           " p.BirimId = b.BirimId" +
-                                          " WHERE (p.Ad LIKE '%@Kisi%'" +
-                                          " OR p.Soyad LIKE '%@Kisi%'" +
-                                          " OR p.Ad + ' ' + p.Soyad LIKE '%@Kisi%'" +
-                                          " OR p.Telefon LIKE '%@Kisi%')";
+                                          " WHERE (p.Ad LIKE '%'+@Kisi+'%'" +
+                                          " OR p.Soyad LIKE '%'+@Kisi+'%'" +
+                                          " OR p.Ad + ' ' + p.Soyad LIKE '%'+@Kisi+'%'" +
+                                          " OR p.Telefon LIKE '%'+@Kisi+'%')";
                     command.Parameters.AddWithValue("@Kisi", kisi);
                     gvPersoneller.DataSource = command.ExecuteReader();
                     gvPersoneller.DataBind();
