@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Web.UI.WebControls;
 
 namespace Rehber.WebUI.Yonetim
 {
@@ -51,6 +52,38 @@ namespace Rehber.WebUI.Yonetim
                         Session.Add("BIRIMEKLENDI", "Birim başarıyla eklendi.");
                         Response.Redirect("Birim.aspx");
                     }
+                }
+            }
+        }
+
+        protected void gvBirimler_RowDeleting(object sender, System.Web.UI.WebControls.GridViewDeleteEventArgs e)
+        {
+            GridView gridView = sender as GridView;
+            gridView.SelectedIndex = e.RowIndex;
+            var birimId = Convert.ToInt32(gridView.SelectedRow.Cells[1].Text);
+
+            using (SqlConnection dbConnection = new SqlConnection(_connString))
+            {
+                dbConnection.Open();
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.Connection = dbConnection;
+                    command.CommandText = "DELETE FROM Birim WHERE BirimId = @BirimId";
+                    command.Parameters.AddWithValue("@BirimId", birimId);
+                    command.ExecuteNonQuery();
+                    Response.Redirect("Birim.aspx");
+                }
+            }
+        }
+
+        protected void gvBirimler_RowDataBound(object sender, System.Web.UI.WebControls.GridViewRowEventArgs e)
+        {
+            if (e.Row.RowState != DataControlRowState.Edit)
+            {
+                if (e.Row.RowType == DataControlRowType.DataRow)
+                {
+                    LinkButton lb = (LinkButton)e.Row.Cells[0].Controls[0];
+                    lb.Attributes.Add("onclick", "return ConfirmOnDelete();");
                 }
             }
         }
