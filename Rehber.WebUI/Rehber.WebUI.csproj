@@ -75,6 +75,7 @@
     <Content Include="Global.asax" />
     <Content Include="Images\loading.gif" />
     <Content Include="Images\header.png" />
+    <Content Include="Images\profile.gif" />
     <Content Include="KayitListele.ascx" />
     <Content Include="packages.config" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

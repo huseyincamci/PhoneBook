@@ -2,6 +2,7 @@
 using System.Configuration;
 using System.Data.SqlClient;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Web.UI.WebControls;
 
 namespace Rehber.WebUI.Yonetim
@@ -133,7 +134,7 @@ namespace Rehber.WebUI.Yonetim
                     }
                     else
                     {
-                        cmd.Parameters.AddWithValue("@Resim", "/Uploads/noPhoto.png");
+                        cmd.Parameters.AddWithValue("@Resim", "/Images/profile.gif");
                     }
                     cmd.ExecuteNonQuery();
                     PersonelGridDoldur();
@@ -198,13 +199,13 @@ namespace Rehber.WebUI.Yonetim
                 using (SqlCommand command = new SqlCommand())
                 {
                     command.Connection = dbConnection;
-                    command.CommandText = $"SELECT TOP 30 * FROM Personel p" +
-                                          $" INNER JOIN Birim b ON" +
-                                          $" p.BirimId = b.BirimId" +
-                                          $" WHERE (p.Ad LIKE '%@Kisi%'" +
-                                          $" OR p.Soyad LIKE '%@Kisi%'" +
-                                          $" OR p.Ad + ' ' + p.Soyad LIKE '%@Kisi%'" +
-                                          $" OR p.Telefon LIKE '%@Kisi%')";
+                    command.CommandText = "SELECT TOP 30 * FROM Personel p" +
+                                          " INNER JOIN Birim b ON" +
+                                          " p.BirimId = b.BirimId" +
+                                          " WHERE (p.Ad LIKE '%@Kisi%'" +
+                                          " OR p.Soyad LIKE '%@Kisi%'" +
+                                          " OR p.Ad + ' ' + p.Soyad LIKE '%@Kisi%'" +
+                                          " OR p.Telefon LIKE '%@Kisi%')";
                     command.Parameters.AddWithValue("@Kisi", kisi);
                     gvPersoneller.DataSource = command.ExecuteReader();
                     gvPersoneller.DataBind();
@@ -230,7 +231,7 @@ namespace Rehber.WebUI.Yonetim
                     cmd.Connection = con;
                     cmd.CommandText = "UPDATE Personel " +
                                       "SET Ad = @Ad, Soyad = @Soyad, Telefon = @Telefon, Eposta = @Eposta, Web = @Web, Resim = @Resim, BirimId = @BirimId, UnvanId = @UnvanId " +
-                                      $"WHERE PersonelId = @PersonelId";
+                                      "WHERE PersonelId = @PersonelId";
                     cmd.Parameters.AddWithValue("@Ad", ad);
                     cmd.Parameters.AddWithValue("@Soyad", soyad);
                     cmd.Parameters.AddWithValue("@Telefon", telefon);
@@ -290,9 +291,13 @@ namespace Rehber.WebUI.Yonetim
                         resim = reader["Resim"].ToString();
                     }
 
-                    if (File.Exists(Server.MapPath(resim)))
+                    Regex reg = new Regex("/Images/profile.gif");
+                    if (!reg.IsMatch(resim))
                     {
-                        File.Delete(Server.MapPath(resim));
+                        if (File.Exists(Server.MapPath(resim)))
+                        {
+                            File.Delete(Server.MapPath(resim));
+                        }
                     }
                 }
             }
