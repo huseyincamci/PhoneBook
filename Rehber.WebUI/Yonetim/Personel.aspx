@@ -70,9 +70,10 @@
                     <div class="form-group">
                         <label for="txtWeb">Web</label>
                         <asp:TextBox ID="txtWeb" runat="server" CssClass="form-control"></asp:TextBox>
+                        <asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" ControlToValidate="txtWeb" ErrorMessage="Geçerli bir web adresi giriniz. (http://ornek.com)" ForeColor="Red" ValidationExpression="http(s)?://([\w-]+\.)+[\w-]+(/[\w- ./?%&amp;=]*)?"></asp:RegularExpressionValidator>
                     </div>
                 </div>
-                
+
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="drpUnvan">Unvan</label>
@@ -90,8 +91,8 @@
                         <asp:RequiredFieldValidator ID="rqrBirimGerekli" runat="server" ErrorMessage="Lütfen birim seçin" ControlToValidate="drpBirim" ForeColor="Red" InitialValue="0"></asp:RequiredFieldValidator>
                     </div>
                 </div>
-                
-                
+
+
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="fuFotograf">Fotoğraf</label>
