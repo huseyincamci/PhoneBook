@@ -104,7 +104,7 @@
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="btn-group pull-right">
                 <asp:Button ID="btnPersonelDuzenle" runat="server" Text="Düzenle" ToolTip="Düzenlemek istediğiniz kaydı tablodan seçin" CssClass="btn btn-warning pull-right" OnClick="btnPersonelDuzenle_Click" Enabled="False" />
                 <asp:Button ID="btnPersonelEkle" runat="server" Text="Ekle" CssClass="btn btn-primary pull-right" OnClick="btnPersonelEkle_Click" />
             </div>
