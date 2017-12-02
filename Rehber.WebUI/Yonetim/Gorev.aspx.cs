@@ -61,8 +61,7 @@ namespace Rehber.WebUI.Yonetim
         protected void grvGorevler_RowDeleting(object sender, System.Web.UI.WebControls.GridViewDeleteEventArgs e)
         {
             GridView gridView = sender as GridView;
-            gridView.SelectedIndex = e.RowIndex;
-            var gorevId = Convert.ToInt32(gridView.SelectedRow.Cells[1].Text);
+            var gorevId = Convert.ToInt32(gridView.DataKeys[e.RowIndex].Values["GorevId"]);
 
             using (SqlConnection dbConnection = new SqlConnection(_connString))
             {

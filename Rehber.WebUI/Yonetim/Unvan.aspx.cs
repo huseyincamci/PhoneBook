@@ -58,8 +58,7 @@ namespace Rehber.WebUI.Yonetim
         protected void gvUnvanlar_RowDeleting(object sender, System.Web.UI.WebControls.GridViewDeleteEventArgs e)
         {
             GridView gridView = sender as GridView;
-            gridView.SelectedIndex = e.RowIndex;
-            var unvanId = Convert.ToInt32(gridView.SelectedRow.Cells[1].Text);
+            var unvanId = Convert.ToInt32(gridView.DataKeys[e.RowIndex].Values["UnvanId"]);
 
             using (SqlConnection dbConnection = new SqlConnection(_connString))
             {

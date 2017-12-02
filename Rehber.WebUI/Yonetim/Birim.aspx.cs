@@ -59,8 +59,7 @@ namespace Rehber.WebUI.Yonetim
         protected void gvBirimler_RowDeleting(object sender, System.Web.UI.WebControls.GridViewDeleteEventArgs e)
         {
             GridView gridView = sender as GridView;
-            gridView.SelectedIndex = e.RowIndex;
-            var birimId = Convert.ToInt32(gridView.SelectedRow.Cells[1].Text);
+            var birimId = Convert.ToInt32(gridView.DataKeys[e.RowIndex].Values["BirimId"]);
 
             using (SqlConnection dbConnection = new SqlConnection(_connString))
             {
