@@ -323,7 +323,10 @@ namespace Rehber.WebUI.Yonetim
                 {
                     string adSoyad = e.Row.Cells[3].Text + " " + e.Row.Cells[4].Text;
                     LinkButton lb = (LinkButton)e.Row.Cells[0].Controls[0];
+                    LinkButton lbSelect = (LinkButton) e.Row.Cells[0].Controls[2];
                     lb.Attributes.Add("onclick", "return ConfirmOnDelete('" + adSoyad + "');");
+                    lb.Attributes.Add("class", "btn btn-danger btn-sm");
+                    lbSelect.Attributes.Add("class", "btn btn-primary btn-sm");
                 }
             }
         }

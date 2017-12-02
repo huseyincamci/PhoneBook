@@ -83,6 +83,7 @@ namespace Rehber.WebUI.Yonetim
                 {
                     LinkButton lb = (LinkButton)e.Row.Cells[0].Controls[0];
                     lb.Attributes.Add("onclick", "return ConfirmOnDelete();");
+                    lb.Attributes.Add("class", "btn btn-danger btn-sm");
                 }
             }
         }
