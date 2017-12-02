@@ -155,7 +155,7 @@ namespace Rehber.WebUI.Yonetim
         protected void gvPersoneller_SelectedIndexChanged(object sender, EventArgs e)
         {
             GridView personelGridView = sender as GridView;
-            int id = Convert.ToInt32(personelGridView?.SelectedRow.Cells[2].Text);
+            int id = Convert.ToInt32(personelGridView.SelectedDataKey.Values["PersonelId"]);
 
             using (SqlConnection dbConnection = new SqlConnection(_connString))
             {
@@ -274,8 +274,7 @@ namespace Rehber.WebUI.Yonetim
         protected void gvPersoneller_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
             GridView gridView = sender as GridView;
-            gridView.SelectedIndex = e.RowIndex;
-            var personelId = Convert.ToInt32(gridView.SelectedRow.Cells[2].Text);
+            var personelId = Convert.ToInt32(gridView.DataKeys[e.RowIndex].Values["PersonelId"]);
             using (SqlConnection dbConnection = new SqlConnection(_connString))
             {
                 dbConnection.Open();
