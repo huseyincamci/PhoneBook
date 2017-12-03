@@ -3,21 +3,40 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script>
         $(document).ready(function () {
-            var input = $("#Arama_Input");
-            var loading = $("#loading");
-            var icerik = $("#icerik");
+            input = $("#Arama_Input");
+            loading = $("#loading");
+            icerik = $("#icerik");
 
             //hide loading image
             loading.hide();
 
+            ajaxCall(null, null);
+
+            $(input).keyup(function () {
+                var deger = $(input).val();
+                var birim = $("#drpBirimler").val();
+
+                ajaxCall(deger, birim);
+            });
+
+            $("#drpBirimler").change(function () {
+                var deger = $("#drpBirimler").val();
+                var name = $("#Arama_Input").val();
+
+                ajaxCall(name, deger);
+            });
+        });
+
+
+        function ajaxCall(ad, birim) {
             $.ajax({
                 url: "PersonelService.asmx/GetPersonels",
                 method: "POST",
-                data: { ad: null, birim: null },
+                data: { ad: ad, birim: birim },
                 dataType: "json",
                 success: function (data) {
                     loading.hide();
-                    icerik.append(
+                    icerik.html(
                         "<thead>" +
                         "<tr>" +
                         "<th>" +
@@ -36,8 +55,7 @@
                         "Birim" +
                         "</th>" +
                         "</tr>" +
-                        "</thead>");
-                    icerik.append("<tbody>");
+                        "</thead>" + "<tbody>");
                     for (var i = 0; i < data.length; i++) {
                         icerik.append("<tr>" +
                             "<td><img src='" + data[i].Fotograf + "' width='100'/></td>" +
@@ -58,113 +76,7 @@
                     loading.show();
                 }
             });
-
-            $(input).keyup(function () {
-                var deger = $(input).val();
-                var birim = $("#drpBirimler").val();
-
-                $.ajax({
-                    url: "PersonelService.asmx/GetPersonels",
-                    method: "POST",
-                    data: { ad: deger, birim: birim },
-                    dataType: "json",
-                    success: function (data) {
-                        loading.hide();
-                        icerik.html(
-                            "<thead>" +
-                            "<tr>" +
-                            "<th>" +
-                            "Fotoğraf" +
-                            "</th>" +
-                            "<th>" +
-                            "Ad Soyad" +
-                            "</th>" +
-                            "<th>" +
-                            "Telefon" +
-                            "</th>" +
-                            "<th>" +
-                            "Eposta/Web" +
-                            "</th>" +
-                            "<th>" +
-                            "Birim" +
-                            "</th>" +
-                            "</tr>" +
-                            "</thead>" + "<tbody>");
-                        for (var i = 0; i < data.length; i++) {
-                            icerik.append("<tr>" +
-                                "<td><img src='" + data[i].Fotograf + "' width='100'/></td>" +
-                                "<td>" + data[i].Unvan + ' ' + data[i].Ad + ' ' + data[i].Soyad + "</td>" +
-                                "<td>" + data[i].Telefon + "</td>" +
-                                "<td>" + data[i].Eposta + "<br/><a href='" +
-                                data[i].Web
-                                + "' target='_blank'>" +
-                                data[i].Web
-                                + "</a></td>" +
-                                "<td>" + data[i].BirimAdi + "</td>" +
-                                "</tr>");
-                        }
-                        icerik.append("</tbody>");
-                    },
-                    beforeSend: function () {
-                        icerik.children().remove();
-                        loading.show();
-                    }
-                });
-            });
-
-            $("#drpBirimler").change(function () {
-                var deger = $("#drpBirimler").val();
-                var name = $("#Arama_Input").val();
-
-                $.ajax({
-                    url: "PersonelService.asmx/GetPersonels",
-                    method: "POST",
-                    data: { ad: name, birim: deger },
-                    dataType: "json",
-                    success: function (data) {
-                        loading.hide();
-                        icerik.html(
-                            "<thead>" +
-                            "<tr>" +
-                            "<th>" +
-                            "Fotoğraf" +
-                            "</th>" +
-                            "<th>" +
-                            "Ad Soyad" +
-                            "</th>" +
-                            "<th>" +
-                            "Telefon" +
-                            "</th>" +
-                            "<th>" +
-                            "Eposta/Web" +
-                            "</th>" +
-                            "<th>" +
-                            "Birim" +
-                            "</th>" +
-                            "</tr>" +
-                            "</thead>" + "<tbody>");
-                        for (var i = 0; i < data.length; i++) {
-                            icerik.append("<tr>" +
-                                "<td><img src='" + data[i].Fotograf + "' width='100'/></td>" +
-                                "<td>" + data[i].Unvan + ' ' + data[i].Ad + ' ' + data[i].Soyad + "</td>" +
-                                "<td>" + data[i].Telefon + "</td>" +
-                                "<td>" + data[i].Eposta + "<br/><a href='" +
-                                data[i].Web
-                                + "' target='_blank'>" +
-                                data[i].Web
-                                + "</a></td>" +
-                                "<td>" + data[i].BirimAdi + "</td>" +
-                                "</tr>");
-                        }
-                        icerik.append("</tbody>");
-                    },
-                    beforeSend: function () {
-                        icerik.children().remove();
-                        loading.show();
-                    }
-                });
-            });
-        });
+        }
 
     </script>
 
