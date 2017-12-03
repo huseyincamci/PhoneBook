@@ -69,7 +69,22 @@ namespace Rehber.WebUI.Yonetim
                     command.Connection = dbConnection;
                     command.CommandText = "DELETE FROM Birim WHERE BirimId = @BirimId";
                     command.Parameters.AddWithValue("@BirimId", birimId);
-                    command.ExecuteNonQuery();
+                    try
+                    {
+                        command.ExecuteNonQuery();
+                    }
+                    catch (SqlException ex)
+                    {
+                        if (ex.Message.Contains("FK_"))
+                        {
+                            string error = "alert('Birim Personel tablosu tarafından kullanıldığı için silinemez.');";
+                            if (!Page.ClientScript.IsStartupScriptRegistered("ErrorBirim"))
+                            {
+                                ClientScript.RegisterStartupScript(GetType(), "ErrorBirim", error, true);
+                                return;
+                            }
+                        }
+                    }
                     Response.Redirect("Birim.aspx");
                 }
             }
