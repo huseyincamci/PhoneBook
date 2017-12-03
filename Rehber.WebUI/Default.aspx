@@ -43,7 +43,7 @@
                         "Fotoğraf" +
                         "</th>" +
                         "<th>" +
-                        "Ad Soyad" +
+                        "Unvan / Ad Soyad" +
                         "</th>" +
                         "<th>" +
                         "Telefon" +
@@ -92,7 +92,7 @@
     <div class="row">
         <div class="col-lg-8">
             <div class="form-group">
-                <label for="Arama_Input">Ad Soyad Yada Telefona Göre Arama Yap: </label>
+                <label for="Arama_Input">Ad Soyad Ya da Telefona Göre Arama Yap: </label>
                 <input type="text" class="form-control" value="" placeholder="Aranacak kişi" id="Arama_Input" autocomplete="off" />
             </div>
         </div>
