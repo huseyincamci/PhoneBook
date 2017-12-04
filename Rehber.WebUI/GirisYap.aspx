@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Rehber.Master" AutoEventWireup="true" CodeBehind="GirisYap.aspx.cs" Inherits="Rehber.WebUI.GirisYap" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder" runat="server">
@@ -9,6 +10,10 @@
                     Yönetici Girişi
                 </div>
                 <div class="panel-body">
+                    <% if (Session["GIRISBASARISIZ"] != null)
+                        { %>
+                    <div class="alert alert-danger"><%Response.Write(Session["GIRISBASARISIZ"]); %></div>
+                    <% Session.Clear();} %>
                     <div class="form-horizontal">
                         <div class="form-group">
                             <label for="txtKullaniciAdi" class="col-sm-3 control-label">Kullanıcı Adı</label>

@@ -41,6 +41,10 @@ namespace Rehber.WebUI
                         FormsAuthentication.SetAuthCookie(kullaniciAdi, cbBeniHatirla.Checked);
                         Response.Redirect("Yonetim/Default.aspx");
                     }
+                    else
+                    {
+                        Session.Add("GIRISBASARISIZ", "Kullanıcı Adı ya da Şife Geçersiz.");
+                    }
                 }
             }
 
