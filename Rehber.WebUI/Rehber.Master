@@ -13,11 +13,11 @@
     </asp:ContentPlaceHolder>
 </head>
 <body>
-    <div class="container">
+    <div class="container header-back">
         <header style="background: url('/Images/header.png') no-repeat top left; width: 1140px; height: 170px;">
         </header>
     </div>
-    <div class="container">
+    <div class="container" style="padding: 0">
         <nav class="navbar navbar-default navbar-static-top">
             <div>
                 <div class="navbar-header">
