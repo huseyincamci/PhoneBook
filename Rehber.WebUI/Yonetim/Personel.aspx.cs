@@ -187,6 +187,7 @@ namespace Rehber.WebUI.Yonetim
                 }
             }
             btnPersonelDuzenle.Enabled = true;
+            btnPersonelIptal.Enabled = true;
             btnPersonelEkle.Enabled = false;
         }
 
@@ -328,6 +329,11 @@ namespace Rehber.WebUI.Yonetim
                     lbSelect.Attributes.Add("class", "btn btn-primary btn-sm");
                 }
             }
+        }
+
+        protected void btnPersonelIptal_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Personel.aspx");
         }
     }
 }
