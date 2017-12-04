@@ -56,6 +56,18 @@
                         "</th>" +
                         "</tr>" +
                         "</thead>" + "<tbody>");
+                    if (data.length === 0) {
+                        icerik.append("<tr>" +
+                            "<td colspan='5'>" +
+                            "<div class='alert alert-warning' style='background-color: #00BCD4'>" +
+                            "<span class='glyphicon glyphicon-info-sign'>" +
+                            "</span>" +
+                            " Hiç kayıt bulunamadı..." +
+                            "</div>" +
+                            "</td>" +
+                            "</tr>");
+                    }
+
                     for (var i = 0; i < data.length; i++) {
                         icerik.append("<tr>" +
                             "<td><img src='" + data[i].Fotograf + "' width='100'/></td>" +
