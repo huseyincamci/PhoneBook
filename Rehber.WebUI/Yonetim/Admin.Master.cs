@@ -10,7 +10,7 @@ namespace Rehber.WebUI.Yonetim
             var isAuth = HttpContext.Current.User.Identity.IsAuthenticated;
             if (!isAuth)
             {
-                Response.Redirect("/GirisYap.aspx");
+                Response.Redirect("~/GirisYap.aspx");
             }
         }
     }
