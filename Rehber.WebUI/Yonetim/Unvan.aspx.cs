@@ -68,7 +68,22 @@ namespace Rehber.WebUI.Yonetim
                     command.Connection = dbConnection;
                     command.CommandText = "DELETE FROM Unvan WHERE UnvanId = @UnvanId";
                     command.Parameters.AddWithValue("@UnvanId", unvanId);
-                    command.ExecuteNonQuery();
+                    try
+                    {
+                        command.ExecuteNonQuery();
+                    }
+                    catch (SqlException ex)
+                    {
+                        if (ex.Message.Contains("FK_"))
+                        {
+                            string error = "alert('Unvan Personel tablosu tarafından kullanıldığı için silinemez.');";
+                            if (!Page.ClientScript.IsStartupScriptRegistered("ErrorUnvan"))
+                            {
+                                ClientScript.RegisterStartupScript(GetType(), "ErrorUnvan", error, true);
+                                return;
+                            }
+                        }
+                    }
                     Response.Redirect("Unvan.aspx");
                 }
             }
