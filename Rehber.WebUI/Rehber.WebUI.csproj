@@ -58,15 +58,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap-flatly.css" />
-    <Content Include="Content\bootstrap-lumen.css" />
     <Content Include="Content\bootstrap-paper.css" />
-    <Content Include="Content\bootstrap-theme.css" />
-    <Content Include="Content\bootstrap-theme.min.css" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\font-awesome.css" />
-    <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\main.css" />
     <Content Include="Default.aspx" />
     <Content Include="fonts\fontawesome-webfont.svg" />
@@ -76,18 +68,12 @@
     <Content Include="Images\loading.gif" />
     <Content Include="Images\header.png" />
     <Content Include="Images\profile.gif" />
-    <Content Include="KayitListele.ascx" />
     <Content Include="packages.config" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\bootstrap.min.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap-theme.min.css.map" />
-    <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="PersonelService.asmx" />
-    <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="fonts\FontAwesome.otf" />
     <Content Include="fonts\fontawesome-webfont.woff2" />
@@ -101,11 +87,8 @@
     <Content Include="Yonetim\Gorev.aspx" />
     <Content Include="Yonetim\Personel.aspx" />
     <Content Include="Yonetim\Unvan.aspx" />
-    <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.2.1.js" />
     <Content Include="Scripts\jquery-3.2.1.min.js" />
-    <Content Include="Scripts\jquery-3.2.1.slim.js" />
-    <Content Include="Scripts\jquery-3.2.1.slim.min.js" />
     <Content Include="Web.config" />
     <Content Include="Yonetim\Admin.Master" />
   </ItemGroup>
@@ -126,13 +109,6 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
-    <Compile Include="KayitListele.ascx.cs">
-      <DependentUpon>KayitListele.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="KayitListele.ascx.designer.cs">
-      <DependentUpon>KayitListele.ascx</DependentUpon>
     </Compile>
     <Compile Include="Personel.cs" />
     <Compile Include="PersonelService.asmx.cs">
@@ -198,8 +174,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Scripts\jquery-3.2.1.slim.min.map" />
-    <Content Include="Scripts\jquery-3.2.1.min.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
