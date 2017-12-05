@@ -30,7 +30,7 @@ namespace Rehber.WebUI
                     drpBirimler.DataTextField = "BirimAdi";
                     drpBirimler.DataValueField = "BirimId";
                     drpBirimler.DataBind();
-                    ListItem item = new ListItem("--- Birim Seç ---", "0");
+                    ListItem item = new ListItem("--- Tüm Birimler ---", "0");
                     drpBirimler.Items.Insert(0, item);
                 }
             }
