@@ -29,9 +29,11 @@ namespace Rehber.WebUI.Yonetim
                 using (SqlCommand cmd = new SqlCommand())
                 {
                     cmd.Connection = dbConnection;
-                    cmd.CommandText = "SELECT * FROM Personel p " +
+                    cmd.CommandText = "SELECT TOP 70 * FROM Personel p " +
                                       "INNER JOIN Birim b " +
-                                      "ON p.BirimId = b.BirimId" +
+                                      "ON p.BirimId = b.BirimId " +
+                                      "LEFT JOIN Unvan u " +
+                                      "ON p.UnvanId = u.UnvanId" +
                                       " ORDER BY PersonelId DESC";
                     gvPersoneller.DataSource = cmd.ExecuteReader();
                     gvPersoneller.DataBind();
@@ -85,6 +87,7 @@ namespace Rehber.WebUI.Yonetim
             string web = txtWeb.Text.Trim();
             int birimId = Convert.ToInt32(drpBirim.SelectedValue);
             int unvanId = Convert.ToInt32(drpUnvan.SelectedValue);
+            string sicilNo = drpSicilEk.SelectedValue + '-' + txtSicil.Text.Trim();
 
             using (SqlConnection dbCon = new SqlConnection(_connString))
             {
@@ -92,13 +95,14 @@ namespace Rehber.WebUI.Yonetim
                 using (SqlCommand command = new SqlCommand())
                 {
                     command.Connection = dbCon;
-                    command.CommandText = "SELECT * FROM Personel WHERE Eposta = @Eposta OR Telefon = @Telefon";
-                    command.Parameters.AddWithValue("@Eposta", eposta);
-                    command.Parameters.AddWithValue("@Telefon", telefon);
+                    command.CommandText = "SELECT * FROM Personel WHERE SicilNo = @SicilNo AND UnvanId = @UnvanId AND BirimId = @BirimId";
+                    command.Parameters.AddWithValue("@SicilNo", sicilNo);
+                    command.Parameters.AddWithValue("@UnvanId", unvanId);
+                    command.Parameters.AddWithValue("@BirimId", birimId);
                     var personel = command.ExecuteScalar();
                     if (personel != null)
                     {
-                        Session.Add("HATA", "Eposta ya da Telefon numarası aynı olamaz. Ekleme işlemi gerçekleşmedi.");
+                        Session.Add("HATA", "Sicil No, Unvan ve Birim bilgileri ile daha önce kayıt yapılmıştır.");
                         Response.Redirect("Personel.aspx");
                         return;
                     }
@@ -112,8 +116,9 @@ namespace Rehber.WebUI.Yonetim
                 {
                     cmd.Connection = con;
                     cmd.CommandText = "INSERT INTO Personel" +
-                                      "(Ad, Soyad, Telefon, Eposta, Web, Resim, BirimId, UnvanId) " +
-                                      "VALUES(@Ad, @Soyad, @Telefon, @Eposta, @Web, @Resim, @BirimId, @UnvanId)";
+                                      "(SicilNo, Ad, Soyad, Telefon, Eposta, Web, Resim, BirimId, UnvanId) " +
+                                      "VALUES(@SicilNo, @Ad, @Soyad, @Telefon, @Eposta, @Web, @Resim, @BirimId, @UnvanId)";
+                    cmd.Parameters.AddWithValue("@SicilNo", sicilNo);
                     cmd.Parameters.AddWithValue("@Ad", ad);
                     cmd.Parameters.AddWithValue("@Soyad", soyad);
                     cmd.Parameters.AddWithValue("@Telefon", telefon);
@@ -163,7 +168,7 @@ namespace Rehber.WebUI.Yonetim
                 using (SqlCommand cmd = new SqlCommand())
                 {
                     cmd.Connection = dbConnection;
-                    cmd.CommandText = "SELECT * FROM Personel p " +
+                    cmd.CommandText = "SELECT TOP 1 * FROM Personel p " +
                                       "INNER JOIN Birim b " +
                                       "ON p.BirimId = b.BirimId " +
                                       "LEFT JOIN Unvan u ON " +
@@ -174,6 +179,8 @@ namespace Rehber.WebUI.Yonetim
                     SqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
+                        drpSicilEk.SelectedValue = reader["SicilNo"].ToString().Split('-')[0];
+                        txtSicil.Text = reader["SicilNo"].ToString().Split('-')[1];
                         txtAd.Text = reader["Ad"].ToString();
                         txtSoyad.Text = reader["Soyad"].ToString();
                         txtEposta.Text = reader["Eposta"].ToString();
@@ -200,9 +207,11 @@ namespace Rehber.WebUI.Yonetim
                 using (SqlCommand command = new SqlCommand())
                 {
                     command.Connection = dbConnection;
-                    command.CommandText = "SELECT TOP 30 * FROM Personel p" +
+                    command.CommandText = "SELECT TOP 70 * FROM Personel p" +
                                           " INNER JOIN Birim b ON" +
                                           " p.BirimId = b.BirimId" +
+                                          " LEFT JOIN Unvan u" +
+                                          " ON p.UnvanId = u.UnvanId" +
                                           " WHERE (p.Ad LIKE '%'+@Kisi+'%'" +
                                           " OR p.Soyad LIKE '%'+@Kisi+'%'" +
                                           " OR p.Ad + ' ' + p.Soyad LIKE '%'+@Kisi+'%'" +
@@ -223,6 +232,7 @@ namespace Rehber.WebUI.Yonetim
             string web = txtWeb.Text.Trim();
             int birimId = Convert.ToInt32(drpBirim.SelectedValue);
             int unvanId = Convert.ToInt32(drpUnvan.SelectedValue);
+            string sicilNo = drpSicilEk.SelectedValue + '-' + txtSicil.Text.Trim();
 
             using (SqlConnection con = new SqlConnection(_connString))
             {
@@ -231,8 +241,9 @@ namespace Rehber.WebUI.Yonetim
                 {
                     cmd.Connection = con;
                     cmd.CommandText = "UPDATE Personel " +
-                                      "SET Ad = @Ad, Soyad = @Soyad, Telefon = @Telefon, Eposta = @Eposta, Web = @Web, Resim = @Resim, BirimId = @BirimId, UnvanId = @UnvanId " +
+                                      "SET SicilNo = @SicilNo, Ad = @Ad, Soyad = @Soyad, Telefon = @Telefon, Eposta = @Eposta, Web = @Web, Resim = @Resim, BirimId = @BirimId, UnvanId = @UnvanId " +
                                       "WHERE PersonelId = @PersonelId";
+                    cmd.Parameters.AddWithValue("@SicilNo", sicilNo);
                     cmd.Parameters.AddWithValue("@Ad", ad);
                     cmd.Parameters.AddWithValue("@Soyad", soyad);
                     cmd.Parameters.AddWithValue("@Telefon", telefon);
@@ -323,7 +334,7 @@ namespace Rehber.WebUI.Yonetim
                 {
                     string adSoyad = e.Row.Cells[3].Text + " " + e.Row.Cells[4].Text;
                     LinkButton lb = (LinkButton)e.Row.Cells[0].Controls[0];
-                    LinkButton lbSelect = (LinkButton) e.Row.Cells[0].Controls[2];
+                    LinkButton lbSelect = (LinkButton)e.Row.Cells[0].Controls[2];
                     lb.Attributes.Add("onclick", "return ConfirmOnDelete('" + adSoyad + "');");
                     lb.Attributes.Add("class", "btn btn-danger btn-sm");
                     lbSelect.Attributes.Add("class", "btn btn-primary btn-sm");
