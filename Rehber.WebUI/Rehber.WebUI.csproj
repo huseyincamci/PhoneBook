@@ -87,7 +87,6 @@
     <Content Include="Yonetim\Gorev.aspx" />
     <Content Include="Yonetim\Personel.aspx" />
     <Content Include="Yonetim\Unvan.aspx" />
-    <Content Include="Scripts\jquery-3.2.1.js" />
     <Content Include="Scripts\jquery-3.2.1.min.js" />
     <Content Include="Web.config" />
     <Content Include="Yonetim\Admin.Master" />
