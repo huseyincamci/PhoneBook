@@ -130,6 +130,9 @@
             <asp:BoundField DataField="Eposta" HeaderText="Eposta" />
             <asp:BoundField DataField="BirimAdi" HeaderText="Birim" />
         </Columns>
+        <EmptyDataTemplate>
+            Hiç bir kayıt bulunamadı.
+        </EmptyDataTemplate>
     </asp:GridView>
 
     <script type="text/javascript">

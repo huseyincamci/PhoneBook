@@ -47,6 +47,9 @@
                     </ItemTemplate>
                 </asp:TemplateField>
         </Columns>
+        <EmptyDataTemplate>
+            Hiç bir kayıt bulunamadı.
+        </EmptyDataTemplate>
     </asp:GridView>
     <script type="text/javascript">
         function ConfirmOnDelete(item) {
