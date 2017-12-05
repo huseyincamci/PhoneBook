@@ -76,13 +76,46 @@ namespace Rehber.WebUI.Yonetim
 
         protected void gvUnvanlar_RowDataBound(object sender, System.Web.UI.WebControls.GridViewRowEventArgs e)
         {
-            if (e.Row.RowState != DataControlRowState.Edit)
+            //if (e.Row.RowState != DataControlRowState.Edit)
+            //{
+            //    if (e.Row.RowType == DataControlRowType.DataRow)
+            //    {
+            //        LinkButton lb = (LinkButton)e.Row.Cells[1].Controls[0];
+            //        lb.Attributes.Add("onclick", "return ConfirmOnDelete();");
+            //        lb.Attributes.Add("class", "btn btn-danger btn-sm");
+            //    }
+            //}
+        }
+
+        protected void gvUnvanlar_RowEditing(object sender, GridViewEditEventArgs e)
+        {
+            gvUnvanlar.EditIndex = e.NewEditIndex;
+            UnvanGridDoldur();
+        }
+
+        protected void gvUnvanlar_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
+        {
+            gvUnvanlar.EditIndex = -1;
+            UnvanGridDoldur();
+        }
+
+        protected void gvUnvanlar_RowUpdating(object sender, GridViewUpdateEventArgs e)
+        {
+            int unvanId = (int) gvUnvanlar.DataKeys[e.RowIndex].Value;
+            TextBox txtUnvan = (TextBox) gvUnvanlar.Rows[e.RowIndex].FindControl("txtUnvan");
+
+            using (SqlConnection dbCon = new SqlConnection(_connString))
             {
-                if (e.Row.RowType == DataControlRowType.DataRow)
+                dbCon.Open();
+                using (SqlCommand command = new SqlCommand())
                 {
-                    LinkButton lb = (LinkButton)e.Row.Cells[1].Controls[0];
-                    lb.Attributes.Add("onclick", "return ConfirmOnDelete();");
-                    lb.Attributes.Add("class", "btn btn-danger btn-sm");
+                    command.Connection = dbCon;
+                    command.CommandText = "UPDATE Unvan SET UnvanAdi = @UnvanAdi WHERE UnvanId = @UnvanId";
+                    command.Parameters.AddWithValue("@UnvanAdi", txtUnvan.Text.Trim());
+                    command.Parameters.AddWithValue("UnvanId", unvanId);
+                    command.ExecuteNonQuery();
+                    gvUnvanlar.EditIndex = -1;
+                    UnvanGridDoldur();
                 }
             }
         }

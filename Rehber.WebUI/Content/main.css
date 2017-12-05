@@ -48,3 +48,7 @@ label {
     border: 1px solid #ddd !important;
     padding-left: 5px !important;
 }
+
+.table input[type="text"] {
+    width: 100%;
+}
