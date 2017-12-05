@@ -21,22 +21,38 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="txtBirim">Birim</label>
-                        <asp:TextBox ID="txtBirim" runat="server" CssClass="form-control"></asp:TextBox>
-                        <asp:RequiredFieldValidator ID="rfvBirim" runat="server" ErrorMessage="Birim alanı boş geçilemez" ControlToValidate="txtBirim" ForeColor="Red"></asp:RequiredFieldValidator>
+                        <asp:TextBox ID="txtBirim" runat="server" CssClass="form-control" ValidationGroup="BirimEkle"></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="rfvBirim" runat="server" ErrorMessage="Birim alanı boş geçilemez" ControlToValidate="txtBirim" ForeColor="Red" ValidationGroup="BirimEkle"></asp:RequiredFieldValidator>
                     </div>
                 </div>
             </div>
 
             <div class="form-group">
-                <asp:Button ID="btnBirimEkle" runat="server" Text="Ekle" CssClass="btn btn-primary pull-right" OnClick="btnBirimEkle_Click" />
+                <asp:Button ID="btnBirimEkle" runat="server" Text="Ekle" CssClass="btn btn-primary pull-right" OnClick="btnBirimEkle_Click" ValidationGroup="BirimEkle" />
             </div>
         </div>
     </div>
     <hr />
-    <asp:GridView ID="gvBirimler" runat="server" CssClass="table table-bordered table-hover table-striped" OnRowDataBound="gvBirimler_RowDataBound" OnRowDeleting="gvBirimler_RowDeleting" AutoGenerateColumns="False" DataKeyNames="BirimId">
+    <asp:GridView ID="gvBirimler" runat="server" CssClass="table table-bordered table-hover table-striped" OnRowDeleting="gvBirimler_RowDeleting" AutoGenerateColumns="False" DataKeyNames="BirimId" OnRowCancelingEdit="gvBirimler_RowCancelingEdit" OnRowEditing="gvBirimler_RowEditing" OnRowUpdating="gvBirimler_RowUpdating">
         <Columns>
-            <asp:BoundField DataField="BirimAdi" HeaderText="Birim Adı" />
-            <asp:CommandField ShowDeleteButton="True" />
+            <asp:TemplateField HeaderText="Birim">
+                    <EditItemTemplate>
+                        <asp:TextBox ID="txtBirim" CssClass="form-control" runat="server" Text='<%# Eval("BirimAdi") %>'></asp:TextBox>
+                    </EditItemTemplate>
+                    <ItemTemplate>
+                        <asp:Label ID="lblBirim" runat="server" Text='<%# Eval("BirimAdi") %>'></asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+            <asp:TemplateField>
+                    <EditItemTemplate>
+                        <asp:Button ID="btnUpdate" runat="server" CommandName="Update" CssClass="btn btn-warning" Text="Güncelleştir" />
+                        <asp:Button ID="btnCancel" runat="server" CommandName="Cancel" CssClass="btn btn-info" Text="İptal" />
+                    </EditItemTemplate>
+                    <ItemTemplate>
+                        <asp:Button ID="btnEdit" runat="server" CommandName="Edit" CssClass="btn btn-primary" Text="Düzenle" />
+                        <asp:Button ID="btnDelete" runat="server" CommandName="Delete" CssClass="btn btn-danger" Text="Sil" OnClientClick="return ConfirmOnDelete();" />
+                    </ItemTemplate>
+                </asp:TemplateField>
         </Columns>
     </asp:GridView>
     <script type="text/javascript">

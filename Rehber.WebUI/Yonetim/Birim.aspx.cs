@@ -45,7 +45,7 @@ namespace Rehber.WebUI.Yonetim
                     {
                         cmd.Connection = dbConnection;
                         cmd.CommandText = "INSERT INTO Birim(BirimAdi) VALUES(@BirimAdi)";
-                        cmd.Parameters.AddWithValue("@BirimAdi", birim);
+                        cmd.Parameters.AddWithValue("@BirimAdi", birim.ToUpper());
                         cmd.ExecuteNonQuery();
                         BirimGridDoldur();
                         txtBirim.Text = "";
@@ -90,17 +90,37 @@ namespace Rehber.WebUI.Yonetim
             }
         }
 
-        protected void gvBirimler_RowDataBound(object sender, System.Web.UI.WebControls.GridViewRowEventArgs e)
+        protected void gvBirimler_RowEditing(object sender, GridViewEditEventArgs e)
         {
-            if (e.Row.RowState != DataControlRowState.Edit)
+            gvBirimler.EditIndex = e.NewEditIndex;
+            BirimGridDoldur();;
+        }
+
+        protected void gvBirimler_RowUpdating(object sender, GridViewUpdateEventArgs e)
+        {
+            int birimId = (int) gvBirimler.DataKeys[e.RowIndex].Value;
+            TextBox txtBirim = (TextBox) gvBirimler.Rows[e.RowIndex].FindControl("txtBirim");
+
+            using (SqlConnection dbCon = new SqlConnection(_connString))
             {
-                if (e.Row.RowType == DataControlRowType.DataRow)
+                dbCon.Open();
+                using (SqlCommand command = new SqlCommand())
                 {
-                    LinkButton lb = (LinkButton)e.Row.Cells[1].Controls[0];
-                    lb.Attributes.Add("onclick", "return ConfirmOnDelete();");
-                    lb.Attributes.Add("class", "btn btn-danger btn-sm");
+                    command.Connection = dbCon;
+                    command.CommandText = "UPDATE Birim SET BirimAdi = @BirimAdi WHERE BirimId = @BirimId";
+                    command.Parameters.AddWithValue("@BirimAdi", txtBirim.Text.Trim().ToUpper());
+                    command.Parameters.AddWithValue("@BirimId", birimId);
+                    command.ExecuteNonQuery();
+                    gvBirimler.EditIndex = -1;
+                    BirimGridDoldur();
                 }
             }
+        }
+
+        protected void gvBirimler_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
+        {
+            gvBirimler.EditIndex = -1;
+            BirimGridDoldur();
         }
     }
 }

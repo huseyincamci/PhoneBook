@@ -99,7 +99,7 @@ namespace Rehber.WebUI.Yonetim
                     command.Connection = dbCon;
                     command.CommandText = "UPDATE Unvan SET UnvanAdi = @UnvanAdi WHERE UnvanId = @UnvanId";
                     command.Parameters.AddWithValue("@UnvanAdi", txtUnvan.Text.Trim());
-                    command.Parameters.AddWithValue("UnvanId", unvanId);
+                    command.Parameters.AddWithValue("@UnvanId", unvanId);
                     command.ExecuteNonQuery();
                     gvUnvanlar.EditIndex = -1;
                     UnvanGridDoldur();
