@@ -74,19 +74,6 @@ namespace Rehber.WebUI.Yonetim
             }
         }
 
-        protected void gvUnvanlar_RowDataBound(object sender, System.Web.UI.WebControls.GridViewRowEventArgs e)
-        {
-            //if (e.Row.RowState != DataControlRowState.Edit)
-            //{
-            //    if (e.Row.RowType == DataControlRowType.DataRow)
-            //    {
-            //        LinkButton lb = (LinkButton)e.Row.Cells[1].Controls[0];
-            //        lb.Attributes.Add("onclick", "return ConfirmOnDelete();");
-            //        lb.Attributes.Add("class", "btn btn-danger btn-sm");
-            //    }
-            //}
-        }
-
         protected void gvUnvanlar_RowEditing(object sender, GridViewEditEventArgs e)
         {
             gvUnvanlar.EditIndex = e.NewEditIndex;

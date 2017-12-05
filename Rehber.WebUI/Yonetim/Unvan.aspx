@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Yonetim/Admin.Master" AutoEventWireup="true" CodeBehind="Unvan.aspx.cs" Inherits="Rehber.WebUI.Yonetim.Unvanlar" %>
+﻿<%@ Page Title="" Language="C#" MaintainScrollPositionOnPostback="true" MasterPageFile="~/Yonetim/Admin.Master" AutoEventWireup="true" CodeBehind="Unvan.aspx.cs" Inherits="Rehber.WebUI.Yonetim.Unvanlar" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
@@ -26,7 +26,7 @@
         </div>
     </div>
     <hr />
-    <asp:GridView ID="gvUnvanlar" runat="server" CssClass="table table-bordered table-hover table-striped" OnRowDataBound="gvUnvanlar_RowDataBound" OnRowDeleting="gvUnvanlar_RowDeleting" AutoGenerateColumns="False" DataKeyNames="UnvanId" OnRowCancelingEdit="gvUnvanlar_RowCancelingEdit" OnRowEditing="gvUnvanlar_RowEditing" OnRowUpdating="gvUnvanlar_RowUpdating">
+    <asp:GridView ID="gvUnvanlar" runat="server" CssClass="table table-bordered table-hover table-striped" OnRowDeleting="gvUnvanlar_RowDeleting" AutoGenerateColumns="False" DataKeyNames="UnvanId" OnRowCancelingEdit="gvUnvanlar_RowCancelingEdit" OnRowEditing="gvUnvanlar_RowEditing" OnRowUpdating="gvUnvanlar_RowUpdating">
         <Columns>
             <asp:TemplateField HeaderText="Unvan">
                     <EditItemTemplate>
@@ -36,7 +36,6 @@
                         <asp:Label ID="lblUnvan" runat="server" Text='<%# Eval("UnvanAdi") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
-            <%--<asp:CommandField ShowDeleteButton="True" />--%>
             <asp:TemplateField>
                     <EditItemTemplate>
                         <asp:Button ID="btnUpdate" runat="server" CommandName="Update" CssClass="btn btn-warning" Text="Güncelleştir" />
