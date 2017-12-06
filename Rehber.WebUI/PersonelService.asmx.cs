@@ -35,15 +35,15 @@ namespace Rehber.WebUI
                                    " p.BirimId = b.BirimId" +
                                    " LEFT JOIN Unvan u ON" +
                                    " u.UnvanId = p.UnvanId" +
-                                   $" WHERE (p.Ad LIKE '%{ad}%'" +
-                                   $" OR p.Soyad LIKE '%{ad}%'" +
-                                   $" OR p.Ad + ' ' + p.Soyad LIKE '%{ad}%'" +
-                                   $" OR p.Telefon LIKE '%{ad}%')");
+                                   " WHERE (p.Ad LIKE '%'+@Ad+'%'" +
+                                   " OR p.Soyad LIKE '%'+@Ad+'%'" +
+                                   " OR p.Ad + ' ' + p.Soyad LIKE '%'+@Ad+'%'" +
+                                   " OR p.Telefon LIKE '%'+@Ad+'%')");
                 }
 
                 if (!string.IsNullOrEmpty(birim) && Convert.ToInt32(birim) != 0)
                 {
-                    command.Append($" AND p.BirimId = {birim}");
+                    command.Append(" AND p.BirimId = @Birim");
                 }
             }
             else
@@ -58,7 +58,7 @@ namespace Rehber.WebUI
                 {
                     if (Convert.ToInt32(birim) != 0)
                     {
-                        command.Append($" WHERE p.BirimId = {birim}");
+                        command.Append(" WHERE p.BirimId = @Birim");
                     }
                 }
             }
@@ -66,9 +66,22 @@ namespace Rehber.WebUI
 
             using (SqlConnection con = new SqlConnection(_connString))
             {
-                using (SqlCommand sqlCommand = new SqlCommand(command.ToString(), con))
+                con.Open();
+                using (SqlCommand sqlCommand = new SqlCommand())
                 {
-                    con.Open();
+                    sqlCommand.Connection = con;
+                    sqlCommand.CommandText = command.ToString();
+                    if (!string.IsNullOrEmpty(ad))
+                    {
+                        sqlCommand.Parameters.AddWithValue("@Ad", ad);
+                    }
+                    if (!string.IsNullOrEmpty(birim))
+                    {
+                        if (Convert.ToInt32(birim) != 0)
+                        {
+                            sqlCommand.Parameters.AddWithValue("@Birim", birim);
+                        }
+                    }
                     using (SqlDataReader reader = sqlCommand.ExecuteReader())
                     {
                         while (reader.Read())
