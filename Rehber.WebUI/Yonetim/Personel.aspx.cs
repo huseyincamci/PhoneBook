@@ -11,6 +11,7 @@ namespace Rehber.WebUI.Yonetim
     public partial class Personel : System.Web.UI.Page
     {
         private readonly string _connString = ConfigurationManager.ConnectionStrings["PersonelDB"].ConnectionString;
+        private readonly string _uploads = ConfigurationManager.AppSettings["UPLOADS"];
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -140,8 +141,10 @@ namespace Rehber.WebUI.Yonetim
                             lblMaxBoyut.Text = "Dosya boyutu max 4MB olabilir.";
                             return;
                         }
-                        fuFotograf.SaveAs(Server.MapPath($"/Uploads/{dosyaAdi}"));
-                        cmd.Parameters.AddWithValue("@Resim", $"/Uploads/{dosyaAdi}");
+                        string directory = $"{_uploads}/{sicilNo}";
+                        Directory.CreateDirectory(Server.MapPath(directory));
+                        fuFotograf.SaveAs(Server.MapPath($"{_uploads}/{sicilNo}/{dosyaAdi}"));
+                        cmd.Parameters.AddWithValue("@Resim", $"{_uploads}/{sicilNo}/{dosyaAdi}");
                     }
                     else
                     {
@@ -197,6 +200,8 @@ namespace Rehber.WebUI.Yonetim
                         hfFileName.Value = reader["Resim"].ToString();
                         hfPersonelId.Value = reader["PersonelId"].ToString();
                     }
+                    drpSicilEk.Enabled = false;
+                    txtSicil.Enabled = false;
                 }
             }
             btnPersonelDuzenle.Enabled = true;
@@ -271,8 +276,10 @@ namespace Rehber.WebUI.Yonetim
                             return;
                         }
                         string dosyaAdi = fuFotograf.FileName;
-                        fuFotograf.SaveAs(Server.MapPath($"/Uploads/{dosyaAdi}"));
-                        cmd.Parameters.AddWithValue("@Resim", $"/Uploads/{dosyaAdi}");
+                        string directory = $"{_uploads}/{sicilNo}";
+                        Directory.CreateDirectory(Server.MapPath(directory));
+                        fuFotograf.SaveAs(Server.MapPath($"{_uploads}/{sicilNo}/{dosyaAdi}"));
+                        cmd.Parameters.AddWithValue("@Resim", $"{_uploads}/{sicilNo}/{dosyaAdi}");
                     }
                     else
                     {
