@@ -13,20 +13,19 @@
 </head>
 <body>
     <div class="container-fluid header-back">
-        <header style="background: url('/Images/header.png') no-repeat top left; width: 1140px; height: 170px;">
+        <header style="background: url('/Images/header.png') no-repeat top left; width: 1140px; height: 170px;" class="img-responsive">
         </header>
     </div>
     <div>
         <nav class="navbar navbar-default navbar-static-top">
             <div class="container-fluid navbar-back">
                 <div class="navbar-header">
-                    <%--<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Üniversite Rehber</a>--%>
                 </div>
 
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">

@@ -48,7 +48,7 @@ namespace Rehber.WebUI.Yonetim
                 using (SqlCommand cmd = new SqlCommand())
                 {
                     cmd.Connection = dbConnection;
-                    cmd.CommandText = "SELECT * FROM Unvan ORDER BY UnvanId DESC";
+                    cmd.CommandText = "SELECT * FROM Unvan ORDER BY UnvanAdi ASC";
                     gvUnvanlar.DataSource = cmd.ExecuteReader();
                     gvUnvanlar.DataBind();
                 }

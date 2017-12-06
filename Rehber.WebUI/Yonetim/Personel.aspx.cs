@@ -32,12 +32,7 @@ namespace Rehber.WebUI.Yonetim
         {
             using (SqlConnection dbConnection = new SqlConnection(_connString))
             {
-                var commandText = "SELECT TOP 70 * FROM Personel p " +
-                                      "INNER JOIN Birim b " +
-                                      "ON p.BirimId = b.BirimId " +
-                                      "LEFT JOIN Unvan u " +
-                                      "ON p.UnvanId = u.UnvanId" +
-                                      " ORDER BY PersonelId DESC";
+                var commandText = "SELECT * FROM Personel p INNER JOIN Birim b ON p.BirimId = b.BirimId LEFT JOIN Unvan u ON p.UnvanId = u.UnvanId ORDER BY PersonelId DESC";
                 using (SqlDataAdapter da = new SqlDataAdapter(commandText, dbConnection))
                 {
                     DataTable personeller = new DataTable();
@@ -50,38 +45,49 @@ namespace Rehber.WebUI.Yonetim
 
         protected void BirimDrpDoldur()
         {
-            using (SqlConnection dbConnection = new SqlConnection(_connString))
+            try
             {
-                dbConnection.Open();
-                using (SqlCommand cmd = new SqlCommand())
+                using (SqlConnection dbConnection = new SqlConnection(_connString))
                 {
-                    cmd.Connection = dbConnection;
-                    cmd.CommandText = "SELECT * FROM Birim ORDER BY BirimAdi ASC";
-                    drpBirim.DataSource = cmd.ExecuteReader();
-                    drpBirim.DataTextField = "BirimAdi";
-                    drpBirim.DataValueField = "BirimId";
-                    drpBirim.DataBind();
-                    drpBirim.Items.Insert(0, new ListItem("--- Birim Seç ---", "0"));
+                    dbConnection.Open();
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.Connection = dbConnection;
+                        cmd.CommandText = "SELECT * FROM Birim ORDER BY BirimAdi ASC";
+                        drpBirim.DataSource = cmd.ExecuteReader();
+                        drpBirim.DataTextField = "BirimAdi";
+                        drpBirim.DataValueField = "BirimId";
+                        drpBirim.DataBind();
+                        drpBirim.Items.Insert(0, new ListItem("--- Birim Seç ---", "0"));
+
+                    }
                 }
             }
+            catch (Exception e) { Response.Write(e.Message); }
         }
-
 
         protected void UnvanDrpDoldur()
         {
-            using (SqlConnection dbConnection = new SqlConnection(_connString))
+            try
             {
-                dbConnection.Open();
-                using (SqlCommand cmd = new SqlCommand())
+                using (SqlConnection dbConnection = new SqlConnection(_connString))
                 {
-                    cmd.Connection = dbConnection;
-                    cmd.CommandText = "SELECT * FROM Unvan ORDER BY UnvanAdi ASC";
-                    drpUnvan.DataSource = cmd.ExecuteReader();
-                    drpUnvan.DataTextField = "UnvanAdi";
-                    drpUnvan.DataValueField = "UnvanId";
-                    drpUnvan.DataBind();
-                    drpUnvan.Items.Insert(0, new ListItem("--- Unvan Seç ---", "0"));
+                    dbConnection.Open();
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.Connection = dbConnection;
+                        cmd.CommandText = "SELECT * FROM Unvan ORDER BY UnvanAdi ASC";
+                        drpUnvan.DataSource = cmd.ExecuteReader();
+                        drpUnvan.DataTextField = "UnvanAdi";
+                        drpUnvan.DataValueField = "UnvanId";
+                        drpUnvan.DataBind();
+                        drpUnvan.Items.Insert(0, new ListItem("--- Unvan Seç ---", "0"));
+                    }
                 }
+            }
+            catch (Exception e)
+            {
+                Response.Write(e.Message);
             }
         }
 
@@ -257,9 +263,9 @@ namespace Rehber.WebUI.Yonetim
                 {
                     cmd.Connection = con;
                     cmd.CommandText = "UPDATE Personel " +
-                                      "SET SicilNo = @SicilNo, Ad = @Ad, Soyad = @Soyad, Telefon = @Telefon, Eposta = @Eposta, Web = @Web, Resim = @Resim, BirimId = @BirimId, UnvanId = @UnvanId " +
+                                      "SET Ad = @Ad, Soyad = @Soyad, Telefon = @Telefon, Eposta = @Eposta, Web = @Web, Resim = @Resim, BirimId = @BirimId, UnvanId = @UnvanId " +
                                       "WHERE PersonelId = @PersonelId";
-                    cmd.Parameters.AddWithValue("@SicilNo", sicilNo);
+
                     cmd.Parameters.AddWithValue("@Ad", ad);
                     cmd.Parameters.AddWithValue("@Soyad", soyad);
                     cmd.Parameters.AddWithValue("@Telefon", telefon);
@@ -268,11 +274,12 @@ namespace Rehber.WebUI.Yonetim
                     cmd.Parameters.AddWithValue("@BirimId", birimId);
                     cmd.Parameters.AddWithValue("@UnvanId", unvanId);
                     cmd.Parameters.AddWithValue("@PersonelId", hfPersonelId.Value);
+
                     if (fuFotograf.HasFile)
                     {
-                        if (fuFotograf.PostedFile.ContentLength > 2000000)
+                        if (fuFotograf.PostedFile.ContentLength > 4000000)
                         {
-                            lblMaxBoyut.Text = "Dosya boyutu max 2MB olabilir.";
+                            lblMaxBoyut.Text = "Dosya boyutu max 4MB olabilir.";
                             return;
                         }
                         string dosyaAdi = fuFotograf.FileName;
@@ -295,7 +302,7 @@ namespace Rehber.WebUI.Yonetim
                     txtWeb.Text = "";
                     drpBirim.SelectedIndex = 0;
 
-                    Session.Add("GUNCEL", "Personel başarıyla güncenllendi.");
+                    Session.Add("GUNCEL", "Personel başarıyla güncellendi.");
                     Response.Redirect("Personel.aspx");
                 }
             }
@@ -314,6 +321,7 @@ namespace Rehber.WebUI.Yonetim
                     command.CommandText = "SELECT Resim FROM Personel WHERE PersonelId = @Id";
                     command.Parameters.AddWithValue("@Id", personelId);
                     SqlDataReader reader = command.ExecuteReader();
+
                     string resim = string.Empty;
                     while (reader.Read())
                     {
@@ -350,10 +358,9 @@ namespace Rehber.WebUI.Yonetim
             {
                 if (e.Row.RowType == DataControlRowType.DataRow)
                 {
-                    string adSoyad = e.Row.Cells[3].Text + " " + e.Row.Cells[4].Text;
                     LinkButton lb = (LinkButton)e.Row.Cells[0].Controls[0];
                     LinkButton lbSelect = (LinkButton)e.Row.Cells[0].Controls[2];
-                    lb.Attributes.Add("onclick", "return ConfirmOnDelete('" + adSoyad + "');");
+                    lb.Attributes.Add("onclick", "return ConfirmOnDelete();");
                     lb.Attributes.Add("class", "btn btn-danger btn-sm");
                     lbSelect.Attributes.Add("class", "btn btn-primary btn-sm");
                 }
