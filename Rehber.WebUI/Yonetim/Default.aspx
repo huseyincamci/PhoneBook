@@ -40,17 +40,4 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-4">
-            <div class="panel panel-info">
-                <div class="panel-heading">
-                    Toplam Görev
-                </div>
-                <div class="panel-body">
-                    <span class="glyphicon glyphicon-tasks" style="font-size: 5em"></span>
-                    <asp:Label ID="lblGorev" runat="server" Text="" Font-Size="5em"></asp:Label>
-                </div>
-            </div>
-        </div>
-    </div>
 </asp:Content>

@@ -56,8 +56,6 @@
                         </table>
                     </div>
                 </div>
-            </div>
-            <div class="row">
                 <div class="col-md-6">
                     <asp:HiddenField ID="hfPersonelId" runat="server" />
                     <asp:HiddenField ID="hfFileName" runat="server" />
@@ -67,6 +65,8 @@
                         <asp:RequiredFieldValidator ID="rfvAd" runat="server" ErrorMessage="Ad alanı boş geçilemez" ControlToValidate="txtAd" ForeColor="Red"></asp:RequiredFieldValidator>
                     </div>
                 </div>
+            </div>
+            <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="txtSoyad">Soyad</label>
@@ -74,9 +74,6 @@
                         <asp:RequiredFieldValidator ID="rfvSoyad" runat="server" ErrorMessage="Soyad alanı boş geçilemez" ControlToValidate="txtSoyad" ForeColor="Red"></asp:RequiredFieldValidator>
                     </div>
                 </div>
-            </div>
-
-            <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="txtTelefon">Telefon</label>
@@ -84,6 +81,9 @@
                         <asp:RequiredFieldValidator ID="rqvTelefon" runat="server" ErrorMessage="Telefon alanı boş geçilemez" ControlToValidate="txtTelefon" ForeColor="Red"></asp:RequiredFieldValidator>
                     </div>
                 </div>
+            </div>
+
+            <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="txtEposta">Eposta</label>
@@ -92,9 +92,6 @@
                         <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="txtEposta" ErrorMessage="Geçerli bir mail adresi giriniz." ForeColor="Red" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"></asp:RegularExpressionValidator>
                     </div>
                 </div>
-            </div>
-
-            <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="txtWeb">Web</label>
@@ -102,7 +99,9 @@
                         <asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" ControlToValidate="txtWeb" ErrorMessage="Geçerli bir web adresi giriniz. (http://ornek.com)" ForeColor="Red" ValidationExpression="http(s)?://([\w-]+\.)+[\w-]+(/[\w- ./?%&amp;=]*)?"></asp:RegularExpressionValidator>
                     </div>
                 </div>
+            </div>
 
+            <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="drpUnvan">Unvan</label>
@@ -110,9 +109,6 @@
                         <asp:RequiredFieldValidator ID="rqrUnvan" runat="server" ErrorMessage="Lütfen unvan seçin" ControlToValidate="drpUnvan" ForeColor="Red" InitialValue="0"></asp:RequiredFieldValidator>
                     </div>
                 </div>
-            </div>
-
-            <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="drpBirim">Birim</label>
@@ -120,8 +116,9 @@
                         <asp:RequiredFieldValidator ID="rqrBirimGerekli" runat="server" ErrorMessage="Lütfen birim seçin" ControlToValidate="drpBirim" ForeColor="Red" InitialValue="0"></asp:RequiredFieldValidator>
                     </div>
                 </div>
+            </div>
 
-
+            <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="fuFotograf">Fotoğraf</label>

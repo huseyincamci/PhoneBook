@@ -59,33 +59,36 @@ namespace Rehber.WebUI.Yonetim
         protected void gvBirimler_RowDeleting(object sender, System.Web.UI.WebControls.GridViewDeleteEventArgs e)
         {
             GridView gridView = sender as GridView;
-            var birimId = Convert.ToInt32(gridView.DataKeys[e.RowIndex].Values["BirimId"]);
-
-            using (SqlConnection dbConnection = new SqlConnection(_connString))
+            if (gridView != null)
             {
-                dbConnection.Open();
-                using (SqlCommand command = new SqlCommand())
+                var birimId = Convert.ToInt32(gridView.DataKeys[e.RowIndex].Values["BirimId"]);
+
+                using (SqlConnection dbConnection = new SqlConnection(_connString))
                 {
-                    command.Connection = dbConnection;
-                    command.CommandText = "DELETE FROM Birim WHERE BirimId = @BirimId";
-                    command.Parameters.AddWithValue("@BirimId", birimId);
-                    try
+                    dbConnection.Open();
+                    using (SqlCommand command = new SqlCommand())
                     {
-                        command.ExecuteNonQuery();
-                    }
-                    catch (SqlException ex)
-                    {
-                        if (ex.Message.Contains("FK_"))
+                        command.Connection = dbConnection;
+                        command.CommandText = "DELETE FROM Birim WHERE BirimId = @BirimId";
+                        command.Parameters.AddWithValue("@BirimId", birimId);
+                        try
                         {
-                            string error = "alert('Birim Personel tablosu tarafından kullanıldığı için silinemez.');";
-                            if (!Page.ClientScript.IsStartupScriptRegistered("ErrorBirim"))
+                            command.ExecuteNonQuery();
+                        }
+                        catch (SqlException ex)
+                        {
+                            if (ex.Message.Contains("FK_"))
                             {
-                                ClientScript.RegisterStartupScript(GetType(), "ErrorBirim", error, true);
-                                return;
+                                string error = "alert('Birim Personel tablosu tarafından kullanıldığı için silinemez.');";
+                                if (!Page.ClientScript.IsStartupScriptRegistered("ErrorBirim"))
+                                {
+                                    ClientScript.RegisterStartupScript(GetType(), "ErrorBirim", error, true);
+                                    return;
+                                }
                             }
                         }
+                        Response.Redirect("Birim.aspx");
                     }
-                    Response.Redirect("Birim.aspx");
                 }
             }
         }
