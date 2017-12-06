@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -19,23 +20,28 @@ namespace Rehber.WebUI.Yonetim
                 BirimDrpDoldur();
                 UnvanDrpDoldur();
             }
+
+            if (Request.QueryString["kisi"] != null)
+            {
+                AramaYap(Request.QueryString["kisi"]);
+            }
         }
 
         protected void PersonelGridDoldur()
         {
             using (SqlConnection dbConnection = new SqlConnection(_connString))
             {
-                dbConnection.Open();
-                using (SqlCommand cmd = new SqlCommand())
-                {
-                    cmd.Connection = dbConnection;
-                    cmd.CommandText = "SELECT TOP 70 * FROM Personel p " +
+                var commandText = "SELECT TOP 70 * FROM Personel p " +
                                       "INNER JOIN Birim b " +
                                       "ON p.BirimId = b.BirimId " +
                                       "LEFT JOIN Unvan u " +
                                       "ON p.UnvanId = u.UnvanId" +
                                       " ORDER BY PersonelId DESC";
-                    gvPersoneller.DataSource = cmd.ExecuteReader();
+                using (SqlDataAdapter da = new SqlDataAdapter(commandText, dbConnection))
+                {
+                    DataTable personeller = new DataTable();
+                    da.Fill(personeller);
+                    gvPersoneller.DataSource = personeller;
                     gvPersoneller.DataBind();
                 }
             }
@@ -201,23 +207,28 @@ namespace Rehber.WebUI.Yonetim
         protected void btnKisiAra_Click(object sender, EventArgs e)
         {
             string kisi = txtKisiAra.Text.Trim();
+            Response.Redirect($"Personel.aspx?kisi={kisi}");
+        }
+
+        private void AramaYap(string kisi)
+        {
             using (SqlConnection dbConnection = new SqlConnection(_connString))
             {
-                dbConnection.Open();
-                using (SqlCommand command = new SqlCommand())
+                var commandText = "SELECT TOP 70 * FROM Personel p" +
+                                  " INNER JOIN Birim b ON" +
+                                  " p.BirimId = b.BirimId" +
+                                  " LEFT JOIN Unvan u" +
+                                  " ON p.UnvanId = u.UnvanId" +
+                                  " WHERE (p.Ad LIKE '%'+@Kisi+'%'" +
+                                  " OR p.Soyad LIKE '%'+@Kisi+'%'" +
+                                  " OR p.Ad + ' ' + p.Soyad LIKE '%'+@Kisi+'%'" +
+                                  " OR p.Telefon LIKE '%'+@Kisi+'%')";
+                using (SqlDataAdapter da = new SqlDataAdapter(commandText, dbConnection))
                 {
-                    command.Connection = dbConnection;
-                    command.CommandText = "SELECT TOP 70 * FROM Personel p" +
-                                          " INNER JOIN Birim b ON" +
-                                          " p.BirimId = b.BirimId" +
-                                          " LEFT JOIN Unvan u" +
-                                          " ON p.UnvanId = u.UnvanId" +
-                                          " WHERE (p.Ad LIKE '%'+@Kisi+'%'" +
-                                          " OR p.Soyad LIKE '%'+@Kisi+'%'" +
-                                          " OR p.Ad + ' ' + p.Soyad LIKE '%'+@Kisi+'%'" +
-                                          " OR p.Telefon LIKE '%'+@Kisi+'%')";
-                    command.Parameters.AddWithValue("@Kisi", kisi);
-                    gvPersoneller.DataSource = command.ExecuteReader();
+                    da.SelectCommand.Parameters.AddWithValue("@Kisi", kisi);
+                    DataTable personeller = new DataTable();
+                    da.Fill(personeller);
+                    gvPersoneller.DataSource = personeller;
                     gvPersoneller.DataBind();
                 }
             }
@@ -345,6 +356,19 @@ namespace Rehber.WebUI.Yonetim
         protected void btnPersonelIptal_Click(object sender, EventArgs e)
         {
             Response.Redirect("Personel.aspx");
+        }
+
+        protected void gvPersoneller_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gvPersoneller.PageIndex = e.NewPageIndex;
+            if (Request.QueryString["kisi"] != null)
+            {
+                AramaYap(Request.QueryString["kisi"]);
+            }
+            else
+            {
+                PersonelGridDoldur();
+            }
         }
     }
 }
