@@ -103,7 +103,7 @@
                                             <asp:TextBox ID="txtTelefon" runat="server" CssClass="form-control" placeholder="0 (999) 999 99 99"></asp:TextBox>
                                         </td>
                                         <td>
-                                            <asp:TextBox ID="txtDahili" runat="server" CssClass="form-control" placeholder="999"></asp:TextBox>
+                                            <asp:TextBox ID="txtDahili" runat="server" CssClass="form-control" placeholder="Dahili"></asp:TextBox>
                                         </td>
                                     </tr>
                                     <tr>
