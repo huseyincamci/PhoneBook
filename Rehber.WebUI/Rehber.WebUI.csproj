@@ -84,7 +84,6 @@
     <Content Include="Yonetim\Birim.aspx" />
     <Content Include="Yonetim\CikisYap.aspx" />
     <Content Include="Yonetim\Default.aspx" />
-    <Content Include="Yonetim\Gorev.aspx" />
     <Content Include="Yonetim\Personel.aspx" />
     <Content Include="Yonetim\Unvan.aspx" />
     <Content Include="Scripts\jquery-3.2.1.min.js" />
@@ -149,13 +148,6 @@
     </Compile>
     <Compile Include="Yonetim\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Yonetim\Gorev.aspx.cs">
-      <DependentUpon>Gorev.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Yonetim\Gorev.aspx.designer.cs">
-      <DependentUpon>Gorev.aspx</DependentUpon>
     </Compile>
     <Compile Include="Yonetim\Personel.aspx.cs">
       <DependentUpon>Personel.aspx</DependentUpon>
