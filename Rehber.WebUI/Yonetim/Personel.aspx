@@ -6,48 +6,50 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <h3>Personeller</h3>
     <hr />
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <%if (Session["HATA"] != null)
+                { %>
+            <div class="alert alert-danger">
+                <span class="glyphicon glyphicon-exclamation-sign"></span>
+                <%Response.Write(Session["HATA"]); %>
+            </div>
+            <% Session.Clear();
+                }
+                if (Session["BASARILI"] != null)
+                { %>
+            <div class="alert alert-success">
+
+                <%Response.Write(Session["BASARILI"]); %>
+            </div>
+            <% Session.Clear();
+                }
+                if (Session["GUNCEL"] != null)
+                { %>
+
+            <div class="alert alert-success">
+                <span class="glyphicon glyphicon-ok-sign"></span>
+                <%Response.Write(Session["GUNCEL"]); %>
+            </div>
+            <% }
+                Session.Clear();
+            %>
+        </div>
+    </div>
     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
         <div class="panel panel-primary">
             <div class="panel-heading" role="tab" id="headingOne">
                 <h4 class="panel-title">
-                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">Personel Ekle 
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        <asp:Label ID="lblPersonelEkleDuzenle" runat="server" Text="Yeni Personel Ekle"></asp:Label>
                         <span class="glyphicon glyphicon-triangle-bottom"></span>
                     </a>
                 </h4>
             </div>
             <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
                 <div class="panel-body">
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <%if (Session["HATA"] != null)
-                                { %>
-                            <div class="alert alert-danger">
-                                <span class="glyphicon glyphicon-exclamation-sign"></span>
-                                <%Response.Write(Session["HATA"]); %>
-                            </div>
-                            <% Session.Clear();
-                                }
-                                if (Session["BASARILI"] != null)
-                                { %>
-                            <div class="alert alert-success">
-
-                                <%Response.Write(Session["BASARILI"]); %>
-                            </div>
-                            <% Session.Clear();
-                                }
-                                if (Session["GUNCEL"] != null)
-                                { %>
-
-                            <div class="alert alert-success">
-                                <span class="glyphicon glyphicon-ok-sign"></span>
-                                <%Response.Write(Session["GUNCEL"]); %>
-                            </div>
-                            <% }
-                                Session.Clear();
-                            %>
-                        </div>
-                    </div>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
@@ -94,9 +96,22 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="txtTelefon">Telefon</label>
-                                <asp:TextBox ID="txtTelefon" runat="server" CssClass="form-control" placeholder="0 (999) 999 99 99"></asp:TextBox>
-                                <asp:RequiredFieldValidator ID="rqvTelefon" runat="server" ErrorMessage="Telefon alanı boş geçilemez" ControlToValidate="txtTelefon" ForeColor="Red"></asp:RequiredFieldValidator>
+                                <label for="txtTelefon">Telefon/Dahili</label>
+                                <table style="width: 100%">
+                                    <tr>
+                                        <td style="width: 85%">
+                                            <asp:TextBox ID="txtTelefon" runat="server" CssClass="form-control" placeholder="0 (999) 999 99 99"></asp:TextBox>
+                                        </td>
+                                        <td>
+                                            <asp:TextBox ID="txtDahili" runat="server" CssClass="form-control" placeholder="999"></asp:TextBox>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <asp:RequiredFieldValidator ID="rqvTelefon" runat="server" ErrorMessage="Telefon alanı boş geçilemez" ControlToValidate="txtTelefon" ForeColor="Red"></asp:RequiredFieldValidator>
+                                        </td>
+                                    </tr>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -175,6 +190,7 @@
                 <asp:BoundField DataField="Ad" HeaderText="Ad" />
                 <asp:BoundField DataField="Soyad" HeaderText="Soyad" />
                 <asp:BoundField DataField="Telefon" HeaderText="Telefon" />
+                <asp:BoundField DataField="Dahili" HeaderText="Dahili" />
                 <asp:BoundField DataField="Eposta" HeaderText="Eposta" />
                 <asp:BoundField DataField="BirimAdi" HeaderText="Birim" />
             </Columns>
@@ -196,6 +212,10 @@
         $(function () {
             $('#<%=txtTelefon.ClientID %>').focus(function () {
                 $("#<%=txtTelefon.ClientID %>").mask("0 (999) 999 99 99");
+            });
+
+            $('#<%=txtDahili.ClientID %>').focus(function () {
+                $("#<%=txtDahili.ClientID %>").mask("999");
             });
         });
     </script>

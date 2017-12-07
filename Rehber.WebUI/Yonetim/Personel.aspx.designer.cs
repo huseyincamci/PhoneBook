@@ -13,6 +13,15 @@ namespace Rehber.WebUI.Yonetim {
     public partial class Personel {
         
         /// <summary>
+        /// lblPersonelEkleDuzenle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPersonelEkleDuzenle;
+        
+        /// <summary>
         /// drpSicilEk control.
         /// </summary>
         /// <remarks>
@@ -110,6 +119,15 @@ namespace Rehber.WebUI.Yonetim {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtTelefon;
+        
+        /// <summary>
+        /// txtDahili control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtDahili;
         
         /// <summary>
         /// rqvTelefon control.

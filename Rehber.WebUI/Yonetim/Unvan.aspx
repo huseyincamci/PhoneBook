@@ -5,16 +5,30 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <h3>Unvanlar</h3>
     <hr />
-    <div class="panel panel-primary">
-        <div class="panel-heading">Unvan Ekle</div>
-        <div class="panel-body">
+    <div class="row">
+        <div class="col-md-12">
             <%
                 if (Session["UNVANEKLENDI"] != null)
                 { %>
             <div class="alert alert-success">
+                <span class="glyphicon glyphicon-ok-sign"></span>
                 <% Response.Write(Session["UNVANEKLENDI"]); Session.Clear(); %>
             </div>
             <% } %>
+            
+            <%
+                if (Session["UNVANSILINDI"] != null)
+                { %>
+            <div class="alert alert-success">
+                <span class="glyphicon glyphicon-ok-sign"></span>
+                <% Response.Write(Session["UNVANSILINDI"]); Session.Clear(); %>
+            </div>
+            <% } %>
+        </div>
+    </div>
+    <div class="panel panel-primary">
+        <div class="panel-heading">Unvan Ekle</div>
+        <div class="panel-body">
             <div class="form-group">
                 <label for="txtUnvan">Unvan</label>
                 <asp:TextBox ID="txtUnvan" runat="server" CssClass="form-control" ValidationGroup="BirimEkle"></asp:TextBox>
@@ -29,23 +43,23 @@
     <asp:GridView ID="gvUnvanlar" runat="server" CssClass="table table-bordered table-hover table-striped" OnRowDeleting="gvUnvanlar_RowDeleting" AutoGenerateColumns="False" DataKeyNames="UnvanId" OnRowCancelingEdit="gvUnvanlar_RowCancelingEdit" OnRowEditing="gvUnvanlar_RowEditing" OnRowUpdating="gvUnvanlar_RowUpdating">
         <Columns>
             <asp:TemplateField HeaderText="Unvan">
-                    <EditItemTemplate>
-                        <asp:TextBox ID="txtUnvan" CssClass="form-control" runat="server" Text='<%# Eval("UnvanAdi") %>'></asp:TextBox>
-                    </EditItemTemplate>
-                    <ItemTemplate>
-                        <asp:Label ID="lblUnvan" runat="server" Text='<%# Eval("UnvanAdi") %>'></asp:Label>
-                    </ItemTemplate>
-                </asp:TemplateField>
+                <EditItemTemplate>
+                    <asp:TextBox ID="txtUnvan" CssClass="form-control" runat="server" Text='<%# Eval("UnvanAdi") %>'></asp:TextBox>
+                </EditItemTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="lblUnvan" runat="server" Text='<%# Eval("UnvanAdi") %>'></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
             <asp:TemplateField>
-                    <EditItemTemplate>
-                        <asp:Button ID="btnUpdate" runat="server" CommandName="Update" CssClass="btn btn-warning" Text="Güncelleştir" />
-                        <asp:Button ID="btnCancel" runat="server" CommandName="Cancel" CssClass="btn btn-info" Text="İptal" />
-                    </EditItemTemplate>
-                    <ItemTemplate>
-                        <asp:Button ID="btnEdit" runat="server" CommandName="Edit" CssClass="btn btn-primary" Text="Düzenle" />
-                        <asp:Button ID="btnDelete" runat="server" CommandName="Delete" CssClass="btn btn-danger" Text="Sil" OnClientClick="return ConfirmOnDelete();" />
-                    </ItemTemplate>
-                </asp:TemplateField>
+                <EditItemTemplate>
+                    <asp:Button ID="btnUpdate" runat="server" CommandName="Update" CssClass="btn btn-warning" Text="Güncelleştir" />
+                    <asp:Button ID="btnCancel" runat="server" CommandName="Cancel" CssClass="btn btn-info" Text="İptal" />
+                </EditItemTemplate>
+                <ItemTemplate>
+                    <asp:Button ID="btnEdit" runat="server" CommandName="Edit" CssClass="btn btn-primary" Text="Düzenle" />
+                    <asp:Button ID="btnDelete" runat="server" CommandName="Delete" CssClass="btn btn-danger" Text="Sil" OnClientClick="return ConfirmOnDelete();" />
+                </ItemTemplate>
+            </asp:TemplateField>
         </Columns>
         <EmptyDataTemplate>
             Hiç bir kayıt bulunamadı.

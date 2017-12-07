@@ -74,6 +74,7 @@ namespace Rehber.WebUI.Yonetim
                         try
                         {
                             command.ExecuteNonQuery();
+                            Session.Add("BIRIMSILINDI", "Birim silindi.");
                         }
                         catch (SqlException ex)
                         {

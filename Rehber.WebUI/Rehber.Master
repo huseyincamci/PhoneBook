@@ -5,6 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Rehber</title>
     <link href="~/Content/bootstrap-paper.css" rel="stylesheet" />
     <link href="~/Content/main.css" rel="stylesheet" />
@@ -33,7 +34,7 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="Default.aspx">Anasayfa</a></li>
                         <li><a href="GirisYap.aspx">Yönetim</a></li>
-                        <li style="margin-right: 10px"><a href="#">İletişim</a></li>
+                        <li style="margin-right: 20px"><a href="#">İletişim</a></li>
                     </ul>
                 </div>
             </div>

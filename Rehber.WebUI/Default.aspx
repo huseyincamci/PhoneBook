@@ -46,7 +46,7 @@
                         "Unvan / Ad Soyad" +
                         "</th>" +
                         "<th>" +
-                        "Telefon" +
+                        "Telefon/Dahili" +
                         "</th>" +
                         "<th>" +
                         "Eposta/Web" +
@@ -69,17 +69,61 @@
                     }
 
                     for (var i = 0; i < data.length; i++) {
-                        icerik.append("<tr>" +
-                            "<td><img src='" + data[i].Fotograf + "' width='100'/></td>" +
-                            "<td>" + data[i].Unvan + ' ' + data[i].Ad + ' ' + data[i].Soyad + "</td>" +
-                            "<td>" + data[i].Telefon + "</td>" +
-                            "<td>" + data[i].Eposta + "<br/><a href='" +
-                            data[i].Web
-                            + "' target='_blank'>" +
-                            data[i].Web
-                            + "</a></td>" +
-                            "<td>" + data[i].BirimAdi + "</td>" +
-                            "</tr>");
+                        var html = "";
+                        if (data[i].Dahili === "") {
+                            html = "<tr>" +
+                                "<td><img src='" +
+                                data[i].Fotograf +
+                                "' width='100'/></td>" +
+                                "<td>" +
+                                data[i].Unvan +
+                                ' ' +
+                                data[i].Ad +
+                                ' ' +
+                                data[i].Soyad +
+                                "</td>" +
+                                "<td>" +
+                                data[i].Telefon +
+                                "<td>" +
+                                data[i].Eposta +
+                                "<br/><a href='" +
+                                data[i].Web +
+                                "' target='_blank'>" +
+                                data[i].Web +
+                                "</a></td>" +
+                                "<td>" +
+                                data[i].BirimAdi +
+                                "</td>" +
+                                "</tr>";
+                        } else {
+                            html = "<tr>" +
+                                "<td><img src='" +
+                                data[i].Fotograf +
+                                "' width='100'/></td>" +
+                                "<td>" +
+                                data[i].Unvan +
+                                ' ' +
+                                data[i].Ad +
+                                ' ' +
+                                data[i].Soyad +
+                                "</td>" +
+                                "<td>" +
+                                data[i].Telefon +
+                                "/Dahili " +
+                                data[i].Dahili +
+                                "<td>" +
+                                data[i].Eposta +
+                                "<br/><a href='" +
+                                data[i].Web +
+                                "' target='_blank'>" +
+                                data[i].Web +
+                                "</a></td>" +
+                                "<td>" +
+                                data[i].BirimAdi +
+                                "</td>" +
+                                "</tr>";
+                        }
+                        icerik.append(html);
                     }
                     icerik.append("</tbody>");
                 },
@@ -102,13 +146,13 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder" runat="server">
     <div class="row">
-        <div class="col-lg-8">
+        <div class="col-sm-8">
             <div class="form-group">
                 <label for="Arama_Input">Ad Soyad Ya da Telefona Göre Arama Yap: </label>
                 <input type="text" class="form-control" value="" placeholder="Aranacak kişi" id="Arama_Input" autocomplete="off" />
             </div>
         </div>
-        <div class="col-lg-4">
+        <div class="col-sm-4">
             <label for="drpBirimler">Birime Göre: </label>
             <asp:DropDownList ID="drpBirimler" runat="server" CssClass="form-control border-gray"></asp:DropDownList>
         </div>
@@ -116,7 +160,7 @@
     <hr />
 
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-sm-12">
             <div class="table-responsive">
                 <table class="table table-bordered table-hover table-striped" id="icerik"></table>
             </div>
@@ -125,7 +169,7 @@
     </div>
 
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-sm-12">
             <div class="text-center">
                 <img src="Images/loading.gif" alt="Loading..." id="loading" />
             </div>

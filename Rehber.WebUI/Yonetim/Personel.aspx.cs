@@ -96,6 +96,7 @@ namespace Rehber.WebUI.Yonetim
             string ad = txtAd.Text.Trim();
             string soyad = txtSoyad.Text.Trim();
             string telefon = txtTelefon.Text.Trim();
+            string dahili = txtDahili.Text.Trim();
             string eposta = txtEposta.Text.Trim();
             string web = txtWeb.Text.Trim();
             int birimId = Convert.ToInt32(drpBirim.SelectedValue);
@@ -129,12 +130,13 @@ namespace Rehber.WebUI.Yonetim
                 {
                     cmd.Connection = con;
                     cmd.CommandText = "INSERT INTO Personel" +
-                                      "(SicilNo, Ad, Soyad, Telefon, Eposta, Web, Resim, BirimId, UnvanId) " +
-                                      "VALUES(@SicilNo, @Ad, @Soyad, @Telefon, @Eposta, @Web, @Resim, @BirimId, @UnvanId)";
+                                      "(SicilNo, Ad, Soyad, Telefon, Dahili, Eposta, Web, Resim, BirimId, UnvanId) " +
+                                      "VALUES(@SicilNo, @Ad, @Soyad, @Telefon, @Dahili, @Eposta, @Web, @Resim, @BirimId, @UnvanId)";
                     cmd.Parameters.AddWithValue("@SicilNo", sicilNo);
                     cmd.Parameters.AddWithValue("@Ad", ad);
                     cmd.Parameters.AddWithValue("@Soyad", soyad);
                     cmd.Parameters.AddWithValue("@Telefon", telefon);
+                    cmd.Parameters.AddWithValue("@Dahili", dahili);
                     cmd.Parameters.AddWithValue("@Eposta", eposta);
                     cmd.Parameters.AddWithValue("@Web", web);
                     cmd.Parameters.AddWithValue("@BirimId", birimId);
@@ -200,6 +202,7 @@ namespace Rehber.WebUI.Yonetim
                         txtSoyad.Text = reader["Soyad"].ToString();
                         txtEposta.Text = reader["Eposta"].ToString();
                         txtTelefon.Text = reader["Telefon"].ToString();
+                        txtDahili.Text = reader["Dahili"]?.ToString();
                         txtWeb.Text = reader["Web"].ToString();
                         drpBirim.SelectedValue = reader["BirimId"].ToString();
                         drpUnvan.SelectedValue = reader["UnvanId"]?.ToString();
@@ -210,6 +213,7 @@ namespace Rehber.WebUI.Yonetim
                     txtSicil.Enabled = false;
                 }
             }
+            lblPersonelEkleDuzenle.Text = "Personel Düzenle";
             btnPersonelDuzenle.Enabled = true;
             btnPersonelIptal.Enabled = true;
             btnPersonelEkle.Enabled = false;
@@ -250,6 +254,7 @@ namespace Rehber.WebUI.Yonetim
             string ad = txtAd.Text.Trim();
             string soyad = txtSoyad.Text.Trim();
             string telefon = txtTelefon.Text.Trim();
+            string dahili = txtDahili.Text.Trim();
             string eposta = txtEposta.Text.Trim();
             string web = txtWeb.Text.Trim();
             int birimId = Convert.ToInt32(drpBirim.SelectedValue);
@@ -263,12 +268,13 @@ namespace Rehber.WebUI.Yonetim
                 {
                     cmd.Connection = con;
                     cmd.CommandText = "UPDATE Personel " +
-                                      "SET Ad = @Ad, Soyad = @Soyad, Telefon = @Telefon, Eposta = @Eposta, Web = @Web, Resim = @Resim, BirimId = @BirimId, UnvanId = @UnvanId " +
+                                      "SET Ad = @Ad, Soyad = @Soyad, Telefon = @Telefon, Dahili = @Dahili, Eposta = @Eposta, Web = @Web, Resim = @Resim, BirimId = @BirimId, UnvanId = @UnvanId " +
                                       "WHERE PersonelId = @PersonelId";
 
                     cmd.Parameters.AddWithValue("@Ad", ad);
                     cmd.Parameters.AddWithValue("@Soyad", soyad);
                     cmd.Parameters.AddWithValue("@Telefon", telefon);
+                    cmd.Parameters.AddWithValue("@Dahili", dahili);
                     cmd.Parameters.AddWithValue("@Eposta", eposta);
                     cmd.Parameters.AddWithValue("@Web", web);
                     cmd.Parameters.AddWithValue("@BirimId", birimId);
