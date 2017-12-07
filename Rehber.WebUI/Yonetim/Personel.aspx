@@ -192,6 +192,7 @@
                 <asp:BoundField DataField="Telefon" HeaderText="Telefon" />
                 <asp:BoundField DataField="Dahili" HeaderText="Dahili" />
                 <asp:BoundField DataField="Eposta" HeaderText="Eposta" />
+                <asp:BoundField DataField="Web" HeaderText="Web" />
                 <asp:BoundField DataField="BirimAdi" HeaderText="Birim" />
             </Columns>
             <EmptyDataTemplate>
