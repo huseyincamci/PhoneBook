@@ -30,7 +30,7 @@ namespace Rehber.WebUI
             {
                 if (!string.IsNullOrEmpty(ad))
                 {
-                    command.Append("SELECT TOP 50 * FROM Personel p" +
+                    command.Append("SELECT TOP 100 * FROM Personel p" +
                                    " INNER JOIN Birim b ON" +
                                    " p.BirimId = b.BirimId" +
                                    " LEFT JOIN Unvan u ON" +
@@ -48,7 +48,7 @@ namespace Rehber.WebUI
             }
             else
             {
-                command.Append("SELECT TOP 50 * FROM Personel p" +
+                command.Append("SELECT TOP 100 * FROM Personel p" +
                                    " INNER JOIN Birim b ON" +
                                    " p.BirimId = b.BirimId" +
                                    " LEFT JOIN Unvan u ON" +
