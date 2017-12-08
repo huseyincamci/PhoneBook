@@ -65,6 +65,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="GirisYap.aspx" />
     <Content Include="Global.asax" />
+    <Content Include="Iletisim.aspx" />
     <Content Include="Images\loading.gif" />
     <Content Include="Images\header.png" />
     <Content Include="Images\profile.gif" />
@@ -107,6 +108,13 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Iletisim.aspx.cs">
+      <DependentUpon>Iletisim.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Iletisim.aspx.designer.cs">
+      <DependentUpon>Iletisim.aspx</DependentUpon>
     </Compile>
     <Compile Include="Personel.cs" />
     <Compile Include="PersonelService.asmx.cs">
@@ -165,6 +173,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Properties\PublishProfiles\Rehber.pubxml" />
     <None Include="Properties\PublishProfiles\TestRehber.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

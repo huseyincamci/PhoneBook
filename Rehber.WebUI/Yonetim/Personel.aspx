@@ -10,6 +10,16 @@
 
     <div class="row">
         <div class="col-md-12">
+            <%
+                if (Session["PERSONELSILINDI"] != null)
+                { %>
+            <div class="alert alert-success">
+                <span class="glyphicon glyphicon-ok-sign"></span>
+                <%Response.Write(Session["PERSONELSILINDI"]); %>
+            </div>
+            <% }
+                Session.Clear(); %>
+
             <%if (Session["HATA"] != null)
                 { %>
             <div class="alert alert-danger">
@@ -26,6 +36,18 @@
             </div>
             <% Session.Clear();
                 }
+                if (Session["GUNCEL"] != null)
+                { %>
+
+            <div class="alert alert-success">
+                <span class="glyphicon glyphicon-ok-sign"></span>
+                <%Response.Write(Session["GUNCEL"]); %>
+            </div>
+            <% }
+                Session.Clear();
+            %>
+
+            <%
                 if (Session["GUNCEL"] != null)
                 { %>
 

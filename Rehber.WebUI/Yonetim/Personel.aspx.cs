@@ -353,6 +353,8 @@ namespace Rehber.WebUI.Yonetim
                     command.CommandText = "DELETE FROM Personel WHERE PersonelId = @PersonelId";
                     command.Parameters.AddWithValue("@PersonelId", personelId);
                     command.ExecuteNonQuery();
+
+                    Session.Add("PERSONELSILINDI", "Personel silindi.");
                     Response.Redirect("Personel.aspx");
                 }
             }

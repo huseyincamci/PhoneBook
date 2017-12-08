@@ -34,7 +34,7 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="Default.aspx">Anasayfa</a></li>
                         <li><a href="GirisYap.aspx">Yönetim</a></li>
-                        <li style="margin-right: 20px"><a href="#">İletişim</a></li>
+                        <li style="margin-right: 20px"><a href="Iletisim.aspx">İletişim</a></li>
                     </ul>
                 </div>
             </div>
