@@ -36,26 +36,16 @@
                 dataType: "json",
                 success: function (data) {
                     loading.hide();
-                    icerik.html(
-                        "<thead>" +
-                        "<tr>" +
-                        "<th>" +
-                        "Fotoğraf" +
-                        "</th>" +
-                        "<th>" +
-                        "Unvan / Ad Soyad" +
-                        "</th>" +
-                        "<th>" +
-                        "Telefon/Dahili" +
-                        "</th>" +
-                        "<th>" +
-                        "Eposta/Web" +
-                        "</th>" +
-                        "<th>" +
-                        "Birim" +
-                        "</th>" +
-                        "</tr>" +
-                        "</thead>" + "<tbody>");
+                    var thead = "<thead>";
+                    thead += "<tr>";
+                    thead += "<th>Fotoğraf</th>";
+                    thead += "<th>Unvan/Ad Soyad</th>";
+                    thead += "<th>Telefon/Dahili</th>";
+                    thead += "<th>Eposta/Web</th>";
+                    thead += "<th>Birim</th>";
+                    thead += "</tr>";
+                    thead += "</thead></tbody>";
+                    icerik.html(thead);
                     if (data.length === 0) {
                         icerik.append("<tr>" +
                             "<td colspan='5'>" +
@@ -68,67 +58,26 @@
                             "</tr>");
                     }
 
-                    for (var i = 0; i < data.length; i++) {
-                        var html = "";
-                        if (data[i].Dahili === "") {
-                            html = "<tr>" +
-                                "<td><img src='" +
-                                data[i].Fotograf +
-                                "' width='100'/></td>" +
-                                "<td>" +
-                                data[i].Unvan +
-                                ' ' +
-                                data[i].Ad +
-                                ' ' +
-                                data[i].Soyad +
-                                "</td>" +
-                                "<td>" +
-                                data[i].Telefon +
-                                "<td>" +
-                                data[i].Eposta +
-                                "<br/><a href='" +
-                                data[i].Web +
-                                "' target='_blank'>" +
-                                data[i].Web +
-                                "</a></td>" +
-                                "<td>" +
-                                data[i].BirimAdi +
-                                "</td>" +
-                                "</tr>";
-                        } else {
-                            html = "<tr>" +
-                                "<td><img src='" +
-                                data[i].Fotograf +
-                                "' width='100'/></td>" +
-                                "<td>" +
-                                data[i].Unvan +
-                                ' ' +
-                                data[i].Ad +
-                                ' ' +
-                                data[i].Soyad +
-                                "</td>" +
-                                "<td>" +
-                                data[i].Telefon +
-                                "/Dahili " +
-                                data[i].Dahili +
-                                "<td>" +
-                                data[i].Eposta +
-                                "<br/><a href='" +
-                                data[i].Web +
-                                "' target='_blank'>" +
-                                data[i].Web +
-                                "</a></td>" +
-                                "<td>" +
-                                data[i].BirimAdi +
-                                "</td>" +
-                                "</tr>";
-                        }
-                        icerik.append(html);
+                    if (data) {
+                        $.each(data, function (index, value) {
+                            var html = "";
+                            html = "<tr><td><img src='" + value.Fotograf + "' width='100'/></td>";
+                            html += "<td>" + value.Unvan + " " + value.Ad + " " + value.Soyad + "</td>";
+                            if (value.Dahili === "")
+                                html += "<td>" + value.Telefon + "</td>";
+                            else
+                                html += "<td>" + value.Telefon + "/Dahili " + value.Dahili + "</td>";
+                            html += "<td>" + value.Eposta + "<br/><a href='" + value.Web + "'>" + value.Web + "</a></td>";
+                            html += "<td>" + value.BirimAdi + "</td>";
+                            html += "</tr>";
+
+                            icerik.append(html);
+                        });
                     }
                     icerik.append("</tbody>");
                 },
                 beforeSend: function () {
-                    icerik.children().remove();
+                    icerik.empty();
                     loading.show();
                 }
             });

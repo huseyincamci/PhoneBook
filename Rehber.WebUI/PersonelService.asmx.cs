@@ -52,7 +52,8 @@ namespace Rehber.WebUI
                                    " INNER JOIN Birim b ON" +
                                    " p.BirimId = b.BirimId" +
                                    " LEFT JOIN Unvan u ON" +
-                                   " p.UnvanId = u.UnvanId");
+                                   " p.UnvanId = u.UnvanId " +
+                                   "WHERE b.BirimId = 84 ");
 
                 if (!string.IsNullOrEmpty(birim))
                 {
